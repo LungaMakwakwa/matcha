@@ -224,11 +224,48 @@
           </div>
           <button onclick="myFunction('Demo3')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-users fa-fw w3-margin-right"></i> My Photos</button>
           <div id="Demo3" class="w3-hide w3-container">
+
+          <!------------------------------------------------------------------------------------>
+          <!---------------------------------- UPLOAD 5 PHOTOS --------------------------------->
+          <!------------------------------------------------------------------------------------>
+        
+          <button onclick= hide_choose1() class="w3-button w3-block w3-red w3-section" id = "choose_file1">Choose Image</button>
+          <form action="five_photo_upload.php" method="post" enctype="multipart/form-data">
+            <input type="file" name= "fileToUpload" id="fileToUpload1" class="w3-button w3-block w3-red w3-section" style = "display:none">
+           <input type="submit" value="Upload Image" name="submit" class="w3-button w3-block w3-green w3-section" id = "upload_image1" style = "display:none">
+          </form>
+          <script>
+            function hide_choose1() {
+              //preventdefault();
+              y = document.getElementById("fileToUpload1");
+              z = document.getElementById("choose_file1");
+              y.click();
+              var x = document.getElementById("upload_image1");
+              if (x.style.display === "none") {
+                  x.style.display = "block";
+              } else {
+                  x.style.display = "none";
+              }
+            }
+          </script>
          <div class="w3-row-padding">
          <br>
-           <div class="w3-half">
-             <!-- image-->
-           </div>
+         <?php
+            
+            $sql = "SELECT * FROM gallery WHERE user_id = $user_id";
+            $db->query($sql);
+            $result = $db->results();
+            $num_res = $db->count();
+            $i = 0;
+            while ($i < $num_res)
+            {
+              echo '<div class="w3-half">';
+                echo "<img src= ".$result[$i]->img_name. " style='width:100%' class='w3-margin-bottom'>";
+              echo "</div>";
+              $i++;
+
+            }
+           ?>
            <div class="w3-half">
              <!-- image-->
            </div>
