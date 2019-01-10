@@ -34,7 +34,7 @@
             ));
 
             if($validation->passed())
-            {
+            { 
                 echo Input::get('re_password')."<br>";
                 
                 $user = new User();
@@ -42,7 +42,10 @@
                 $json = json_encode(array(
                     "DOB" => str_replace(",", "", Input::get('checkin_date')),
                     "intrest_gender" => Input::get('intrest_gender'),
-                    "gender" => Input::get('gender')
+                    "gender" => Input::get('gender'),
+                    "display_picture" => "Avatar.png",
+                    "status" => "0"
+
                 ));
                 echo $json;
 

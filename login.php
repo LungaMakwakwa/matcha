@@ -23,14 +23,18 @@
             {
                 $user = new User();
                 $login = $user->login(Input::get('username2'), Input::get('password2'));
-                echo $login;
-                var_dump($login);
+                $db = DB::getInstance();
                 if($login)
                 {
                     $act = $user->data()->active;
                     //echo $act;
                     if ($act === '1')
                     {
+                        if ($user->data()->status === "0")
+                        {
+                            $update = $db->query( "UPDATE users SET `status` = ? WHERE `user_id` = ?", array("status" => "1", "user_id"=>$user->data()->user_id));
+                            
+                        }
                         Redirect::to('logged_in.php');
                     }
                     else

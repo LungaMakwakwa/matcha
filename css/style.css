@@ -1030,3 +1030,22 @@ textarea.form-control {
 
 .text-black {
   color: #000 !important; }
+
+/*----------------------------------------------------------------------------*/
+/*                                                                            */
+/*            SEARCH BOX ANIMATED CSS                                         */                        
+/*                                                                            */
+/*----------------------------------------------------------------------------*/
+/* 
+#textbox {height: 10px; padding:10px;border-radius:5px;border:0;box-shadow:0 0 4px 0 rgba(0,0,0,0.2)}
+.row img {width:30px;height:30px;border-radius:50%;vertical-align:middle;}
+.row {padding:10px;}
+.row:hover {background-color:#eee} */
+
+.dot {
+  height: 15px;
+  width: 15px;
+  /* background-color: #bbb; */
+  border-radius: 50%;
+  display: inline-block;
+}

@@ -133,10 +133,10 @@
 <div class="w3-top">
  <div class="w3-bar w3-theme-d2 w3-left-align w3-large">
   <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
-  <a href="#" class="w3-bar-item w3-button w3-padding-large w3-theme-d4"><i class="fa fa-home w3-margin-right"></i>Logo</a>
-  <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="News"><i class="fa fa-globe"></i></a>
-  <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Account Settings"><i class="fa fa-user"></i></a>
-  <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Messages"><i class="fa fa-envelope"></i></a>
+  <<a href="logged_in.php" class="w3-bar-item w3-button w3-padding-large w3-theme-d4"><i class="fa fa-home w3-margin-right"></i>Logo</a>
+  <a href="matches.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="News"><i class="fa fa-globe"></i></a>
+  <a href="profile.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Account Settings"><i class="fa fa-user"></i></a>
+  <a href="chat.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Messages"><i class="fa fa-envelope"></i></a>
   <div class="w3-dropdown-hover w3-hide-small">
     <button class="w3-button w3-padding-large" title="Notifications"><i class="fa fa-bell"></i><span class="w3-badge w3-right w3-small w3-green">3</span></button>     
     <div class="w3-dropdown-content w3-card-4 w3-bar-block" style="width:300px">
@@ -145,6 +145,7 @@
       <a href="#" class="w3-bar-item w3-button">Jane likes your post</a>
     </div>
   </div>
+  
   <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-white" title="My Account">
     <!-- image-->
   </a>
@@ -180,8 +181,26 @@
       <!-- Profile -->
       <div class="w3-card w3-round w3-white">
         <div class="w3-container">
-         <h4 class="w3-center"><?php echo $name." ".$surname ?></h4>
-         <p class="w3-center"><img src=<?php echo('"'.$profile_data->display_picture.'"')?> class="w3-circle" style="height:106px;width:106px" alt="Avatar"></p>
+         <h4 class="w3-center"><span class="dot"
+         <?php
+            if ($user->data()->status === "1")
+            {
+                echo ('style="background-color:green;"');
+            }
+         ?>
+         ></span><?php echo $name." ".$surname ?></h4>
+         <p class="w3-center"><img src=
+         <?php 
+            if (count($profile_data->display_picture) > 0)
+            {
+              echo('"'.$profile_data->display_picture.'"');
+            }
+            else
+            {
+              echo ("Avatar_male.png");
+            }
+          
+          ?> class="w3-circle" style="height:106px;width:106px" alt="Avatar"></p>
          <button onclick= hide_choose() class="w3-button w3-block w3-red w3-section" id = "choose_file">Choose Image</button>
          <form action="photo_upload.php" method="post" enctype="multipart/form-data">
             <input type="file" name= "fileToUpload" id="fileToUpload" class="w3-button w3-block w3-red w3-section" style = "display:none">
@@ -354,24 +373,28 @@
           </div>
         </div>
       </div>
-      
-      <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
-         <!--- image -->
-        <span class="w3-right w3-opacity">1 min</span>
-        <h4>John Doe</h4><br>
-        <hr class="w3-clear">
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-          <div class="w3-row-padding" style="margin:0 -16px">
-            <div class="w3-half">
-              <!--- image -->
-            </div>
-            <div class="w3-half">
-              <!--- image -->
-          </div>
-        </div>
-        <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
-        <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
-      </div>
+      <?php
+        $db = DB::getInstance();
+        $db->get("gallery",array('user_id', '=', $user->data()->user_id));
+        $images = $db->results();
+        $num_images = $db->count() - 1;
+        $i = 0;
+        while ($i < $num_images)
+        {
+          echo '<div class="w3-container w3-card w3-white w3-round w3-margin"><br>';
+          //echo '<img src="/w3images/avatar6.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">';
+          echo '<span class="w3-right w3-opacity">Picture</span>';
+          //echo '<h4>Angie Jane</h4><br>';
+          echo '<hr class="w3-clear">';
+          //echo '<p>Have you seen this?</p>';
+          echo '<img src="'.$images[$i]->img_name.'" style="width:100%" class="w3-margin-bottom">';
+          echo '<p>.</p>';
+          //echo '<button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> ';
+          //echo '<button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button> ';
+          echo '</div>';
+          $i++;
+        }
+      ?> 
       
     <!-- End Middle Column -->
     </div>
@@ -443,6 +466,7 @@
     
 
     <script src="js/main.js"></script>
+    <!--script src="one_page_js/search.js"></script> 
 
     <!--- W3 CSS SCRIPT -->
     <script>
