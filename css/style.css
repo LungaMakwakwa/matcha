@@ -1049,3 +1049,9 @@ textarea.form-control {
   border-radius: 50%;
   display: inline-block;
 }
+
+.profile:hover
+{
+
+  opacity: 0.3px;
+}

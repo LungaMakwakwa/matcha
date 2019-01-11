@@ -7,12 +7,12 @@ $user = new User();
 
 $username = $user->data()->username;
 
-echo "out";
+//echo "out";
 switch( $_REQUEST['action'] ){
 
 	
 	case "sendMessage":
-		echo "in";
+		//echo "in";
 		//global $db;
 		//session_start();
 		//$query = $db->prepare("INSERT INTO messages SET user=?, message=?");

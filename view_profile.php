@@ -1,3 +1,10 @@
+<?php
+
+    echo ($_GET['user_id']);
+
+
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -36,14 +43,23 @@
         {
             echo '<p>' .Session::flash('home').'</p>';
         }
+        $user_id = $_GET['user_id'];
+
+        $user = new User();
 
         $db = DB::getInstance();
-        $user = new User();
-        $name = $user->data()->first_name;
-        $surname = $user->data()->last_name;
-        $username = $user->data()->username;
-        $user_id = $user->data()->user_id;
-        $profile_data = json_decode($user->data()->profile);
+	    $db->get("users",array('user_id', '=', $user_id));
+        $images = $db->first();
+        //echo($images-first()->last_name);
+
+
+        //$user = new User();
+        $name = $images->first_name;
+        echo ($name);
+        $surname = $images->last_name;
+        $username = $images->username;
+        $user_id = $images->user_id;
+        $profile_data = json_decode($images->profile);
         
 
         function age_cal($dob)
@@ -52,19 +68,6 @@
             $today = date("Y-m-d");
             $diff = date_diff(date_create($dateOfBirth), date_create($today));
             return $diff->format('%y');
-        }
-
-        function status($status)
-        {
-            if ($status === "1")
-            {
-                return ('style="background-color:green;"');
-            }
-            else
-            {
-                return ('style="background-color:red;"');
-            }
-
         }
         //$detail_array = $user->data()->profile;
         
@@ -196,7 +199,14 @@
         <div class="w3-container">
          <h4 class="w3-center"><span class="dot"
          <?php
-            echo (status($user->data()->status));
+            if ($images->status === "1")
+            {
+                echo ('style="background-color:green;"');
+            }
+            else
+            {
+                echo ('style="background-color:red;"');
+            }
          ?>
          ></span><?php echo $name." ".$surname ?></h4>
          <p class="w3-center"><img src=
@@ -211,25 +221,12 @@
             }
           
           ?> class="w3-circle" style="height:106px;width:106px" alt="Avatar"></p>
-         <button onclick= hide_choose() class="w3-button w3-block w3-red w3-section" id = "choose_file">Choose Image</button>
+          <button type="button" id = "like" data-status = "like" data-likee = <?php echo $user_id?> data-liker= <?php echo $user->data()->user_id?> class="w3-button w3-theme-d1 w3-margin-bottom like_btn"><i class="fa fa-thumbs-up"></i>  Like</button> 
+          <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-thumbs-down"></i>  block</button>
          <form action="photo_upload.php" method="post" enctype="multipart/form-data">
             <input type="file" name= "fileToUpload" id="fileToUpload" class="w3-button w3-block w3-red w3-section" style = "display:none">
            <input type="submit" value="Upload Image" name="submit" class="w3-button w3-block w3-green w3-section" id = "upload_image" style = "display:none">
         </form>
-        <script>
-          function hide_choose() {
-            //preventdefault();
-            y = document.getElementById("fileToUpload");
-            z = document.getElementById("choose_file");
-            y.click();
-            var x = document.getElementById("upload_image");
-            if (x.style.display === "none") {
-                x.style.display = "block";
-            } else {
-                x.style.display = "none";
-            }
-        }
-        </script>
          <hr>
          <p><i class="fa fa-at fa-fw w3-margin-right w3-text-theme"></i><?php echo($username) ?></p>
          <p><i class="fa fa-<?php echo(strtolower($profile_data->gender)) ?> fa-fw w3-margin-right w3-text-theme"></i><?php echo($profile_data->gender) ?></p>
@@ -257,26 +254,7 @@
           <!------------------------------------------------------------------------------------>
           <!---------------------------------- UPLOAD 5 PHOTOS --------------------------------->
           <!------------------------------------------------------------------------------------>
-        
-          <button onclick= hide_choose1() class="w3-button w3-block w3-red w3-section" id = "choose_file1">Choose Image</button>
-          <form action="five_photo_upload.php" method="post" enctype="multipart/form-data">
-            <input type="file" name= "fileToUpload" id="fileToUpload1" class="w3-button w3-block w3-red w3-section" style = "display:none">
-           <input type="submit" value="Upload Image" name="submit" class="w3-button w3-block w3-green w3-section" id = "upload_image1" style = "display:none">
-          </form>
-          <script>
-            function hide_choose1() {
-              //preventdefault();
-              y = document.getElementById("fileToUpload1");
-              z = document.getElementById("choose_file1");
-              y.click();
-              var x = document.getElementById("upload_image1");
-              if (x.style.display === "none") {
-                  x.style.display = "block";
-              } else {
-                  x.style.display = "none";
-              }
-            }
-          </script>
+
          <div class="w3-row-padding">
          <br>
          <?php
@@ -314,6 +292,7 @@
           <p>
           <?php
               $intrests = $profile_data->intrests;
+              
               //var_dump($intrests);
               
               if($intrests)
@@ -330,7 +309,6 @@
                 echo "No Intrests";
 
           ?>
-            <button onclick= hidden_div() class="w3-button w3-block w3-green w3-section">Add Intrests</button>
             <div id = "intrests" style = 'display:none'>
             <form action = "intrests.php" method = "post">
               <p>
@@ -376,79 +354,40 @@
         <div class="w3-col m12">
           <div class="w3-card w3-round w3-white">
             <div class="w3-container w3-padding">
-              <h6 class="w3-opacity">Social Media template by w3.css</h6>
+              <h6 class="w3-opacity">My Status Message</h6>
               <p contenteditable="true" class="w3-border w3-padding">Status: Feeling Blue</p>
-              <button type="button" class="w3-button w3-theme"><i class="fa fa-pencil"></i>  Post</button> 
             </div>
           </div>
         </div>
       </div>
       <?php
         $db = DB::getInstance();
-        $db->get("users",array('user_id', '>=', 0));
+        $db->get("gallery",array('user_id', '=', $user->data()->user_id));
         $images = $db->results();
-        $num_images = $db->count();
-        //$profile_data = json_decode($images->profile);
+        $num_images = $db->count() - 1;
         $i = 0;
         while ($i < $num_images)
         {
-          echo '<a href=view_profile.php?user_id='.$images[$i]->user_id.'>';
-          $profile_data = json_decode($images[$i]->profile);
           echo '<div class="w3-container w3-card w3-white w3-round w3-margin"><br>';
           //echo '<img src="/w3images/avatar6.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">';
           echo '<span class="w3-right w3-opacity">Picture</span>';
-          //echo '<h4><span class = "dot" '.status($images[$i]->status).'>'.$images[$i]->first_name.'</span> '.$images[$i]->last_name.'</h4><br>';
-          echo '<h4 class="w3-center"><span class="dot" '.status($images[$i]->status).'></span>'.$images[$i]->first_name.' '.$images[$i]->last_name.'</h4>';
+          //echo '<h4>Angie Jane</h4><br>';
           echo '<hr class="w3-clear">';
           //echo '<p>Have you seen this?</p>';
-          echo '<img src="'.$profile_data->display_picture.'" style="width:100%" class="w3-margin-bottom">';
-          echo '<p>Age: '.age_cal($profile_data->DOB).'</p>';
-          echo '<p>Gender: '.$profile_data->gender.'</p>';
-          //removed button ID
-          //echo '<button type="button" data-status = "like" data-likee="'.$images[$i]->user_id.'" data-liker="'.$user->data()->user_id.'" class="w3-button w3-theme-d1 w3-margin-bottom like_btn"><i class="fa fa-thumbs-up"></i>  Like</button> ';
-          //echo '<button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-thumbs-down"></i>  block</button> ';
-          //echo '<input type = "hidden" value = "'.$images[$i]->user_id.'" name = "'.$images[$i]->user_id.'" id = "data-this_shit">';
-          //echo '<input type = "hidden" value = "'.$user->data()->user_id.'" name = "'.$user->data()->user_id.'" id = "data-this_shit2">';
+          echo '<img src="'.$images[$i]->img_name.'" style="width:100%" class="w3-margin-bottom">';
+          echo '<p>.</p>';
+          //echo '<button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> ';
+          //echo '<button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button> ';
           echo '</div>';
-          echo '</a>';
           $i++;
         }
-      ?>
+      ?> 
+      
     <!-- End Middle Column -->
     </div>
-
-   
     
     <!-- Right Column -->
     <div class="w3-col m2">
-      <div class="w3-card w3-round w3-white w3-center">
-        <div class="w3-container">
-          <p>Upcoming Events:</p>
-          <!-- image-->
-          <p><strong>Holiday</strong></p>
-          <p>Friday 15:00</p>
-          <p><button class="w3-button w3-block w3-theme-l4">Info</button></p>
-        </div>
-      </div>
-      <br>
-      
-      <div class="w3-card w3-round w3-white w3-center">
-        <div class="w3-container">
-          <p>Friend Request</p>
-          <!-- image-->
-          <span>Jane Doe</span>
-          <div class="w3-row w3-opacity">
-            <div class="w3-half">
-              <button class="w3-button w3-block w3-green w3-section" title="Accept"><i class="fa fa-check"></i></button>
-            </div>
-            <div class="w3-half">
-              <button class="w3-button w3-block w3-red w3-section" title="Decline"><i class="fa fa-remove"></i></button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <br>
-      
       <div class="w3-card w3-round w3-white w3-padding-16 w3-center">
         <p>ADS</p>
       </div>
@@ -486,8 +425,7 @@
     
 
     <script src="js/main.js"></script>
-    <!--<script src = "one_page_js/test.js"></script>
-    script src="one_page_js/search.js"></script> 
+    <script src="one_page_js/test.js"></script> 
 
     <!--- W3 CSS SCRIPT -->
     <script>
