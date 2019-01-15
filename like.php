@@ -15,18 +15,19 @@
             $db = DB::getInstance();
             //$imgid = Input::get('imgid');
             $users_id = $user->data()->user_id;
-            $sql = "SELECT * FROM likes WHERE likee_id = $likee_id AND liker_id = $liker_id";
-            echo $sql;
-            var_dump ($sql);
+            $sql = "SELECT * FROM likes WHERE likee_id = $likee_id AND liker_id = $liker_id OR likee_id = $liker_id AND liker_id = $likee_id";
+            //echo $sql;
+            //var_dump ($sql);
             $liker = $db->query($sql);
+            //var_dump($liker);
             $numlikes = $liker->count();
+            echo $numlikes;
             if ($numlikes === 0)
             {
                 $db->insert('likes', array(
                     'likee_id' =>  $likee_id,
                     'liker_id' =>$user->data()->user_id,
-                    'stat' =>  $stat,
-                    'un/liked' =>  $button
+                    'liker_stat' =>  $button
                 ));
                 echo "like added";
 
@@ -55,6 +56,12 @@
                 //     }
                 // }
             }
+            if ($numlikes == 1)
+            {
+                $sql = "UPDATE likes SET likeback = 1 WHERE likee_id = $likee_id AND liker_id = $liker_id OR likee_id = $liker_id AND liker_id = $likee_id";
+                $db->query($sql);
+            }
+                
         //     else
         //     {
         //         $sql_del = "DELETE FROM likes WHERE img_id = $imgid AND user_id = $users_id";

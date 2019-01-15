@@ -46,16 +46,17 @@
         $user_id = $_GET['user_id'];
 
         $user = new User();
+        $userid = $user->data()->user_id;
 
         $db = DB::getInstance();
-	    $db->get("users",array('user_id', '=', $user_id));
+	      $db->get("users",array('user_id', '=', $user_id));
         $images = $db->first();
         //echo($images-first()->last_name);
+        
+        
 
-
-        //$user = new User();
         $name = $images->first_name;
-        echo ($name);
+        //echo ($name);
         $surname = $images->last_name;
         $username = $images->username;
         $user_id = $images->user_id;
@@ -207,6 +208,7 @@
             {
                 echo ('style="background-color:red;"');
             }
+            //var_dump($liker->count());
          ?>
          ></span><?php echo $name." ".$surname ?></h4>
          <p class="w3-center"><img src=
@@ -221,8 +223,30 @@
             }
           
           ?> class="w3-circle" style="height:106px;width:106px" alt="Avatar"></p>
-          <button type="button" id = "like" data-status = "like" data-likee = <?php echo $user_id?> data-liker= <?php echo $user->data()->user_id?> class="w3-button w3-theme-d1 w3-margin-bottom like_btn"><i class="fa fa-thumbs-up"></i>  Like</button> 
-          <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-thumbs-down"></i>  block</button>
+          <?php
+
+            $sql = "SELECT * FROM likes WHERE likee_id = $user_id AND liker_id = $userid OR likee_id = $userid AND liker_id = $user_id";
+            $db->query($sql);
+            $liker = $db->first();
+            $likee_stat = $liker->likee_stat;
+            $liker_stat = $liker->liker_stat;
+            $likee_id = $liker->likee_id;
+            $liker_id = $liker->liker_id;
+            
+            if (($likee_stat == 1 && $likee_id == $user_id) || ($liker_stat == 1 && $liker_id == $user_id))
+            {
+              echo '<button id = "like" class="w3-btn w3-red like_btn" data-status = "like" data-likee = '.$user_id.' data-liker = '.$userid.'  style="text-shadow:1px 1px 0 #444" id="like"><b>unlike</b></button>';
+            }
+            else if (($liker_stat == 1 && $likee_stat == 0 && $likee_id) || ($liker_stat == 0 && $likee_stat == 1 && $liker_id))
+            {
+              echo '<button id = "like" class="w3-btn w3-red like_btn" data-status = "like" data-likee = '.$user_id.' data-liker = '.$userid.' style="text-shadow:1px 1px 0 #444" id="like"><b>Like back</b></button>';
+            }
+            else 
+            {
+              echo '<button id = "like" class="w3-btn w3-red like_btn" data-status = "like" data-likee = '.$user_id.' data-liker = '.$userid.' style="text-shadow:1px 1px 0 #444" id="like"><b>Like</b></button>';
+            }
+  
+          ?>
          <form action="photo_upload.php" method="post" enctype="multipart/form-data">
             <input type="file" name= "fileToUpload" id="fileToUpload" class="w3-button w3-block w3-red w3-section" style = "display:none">
            <input type="submit" value="Upload Image" name="submit" class="w3-button w3-block w3-green w3-section" id = "upload_image" style = "display:none">
