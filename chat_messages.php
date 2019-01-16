@@ -5,57 +5,73 @@ require_once 'core/init.php';
 $db = DB::getInstance();
 $user = new User();
 
-$username = $user->data()->username;
-
-//echo "out";
-switch( $_REQUEST['action'] ){
-
-	
-	case "sendMessage":
-		//echo "in";
-		//global $db;
-		//session_start();
-		//$query = $db->prepare("INSERT INTO messages SET user=?, message=?");
-		$run = $db->insert('messages', array('username' =>  $username, 'message' => $_REQUEST['message']));
-
-		//$run = $query->execute([$_SESSION['username'], $_REQUEST['message']]);
-
-		if( $run ){
-			echo 1;
-			exit;
-		}
-
-
-
-	break;
-
-	case "getMessages":
-
-	//	session_start();
-
-		//$query = $db->prepare("SELECT * FROM messages");
-		//$run = $query->execute();
-		$db->query("SELECT * FROM messages");
-		$run = $db->results();
-
-		//$rs = $query->fetchAll(PDO::FETCH_OBJ);
-
-		$chat = '';
-		foreach( $run as $message )
-		{
-			$chat .= '<div class="single-message '.(($username==$message->username)?'right':'left').'">
-						<strong>'.$message->username.': </strong><br /> <p>'.$message->message.'</p>
-						<br />
-						<span>'.date('h:i a', strtotime($message->date)).'</span>
-						</div>
-						<div class="clear"></div>
-						';
-		}
-
-		echo $chat;
-
-	break;
-
+/* require_once 'core/init.php';
+$db = DB::getInstance();*/
+switch ($_REQUEST['action']) {
+    case 'getUsers':
+        try {
+            // $con = new PDO("mysql:host=localhost", "root", "123456");
+            // $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            // $con->query("USE matcha");
+			$sql = ("SELECT `User`,`userID` FROM `users` JOIN `likes` ON `liker_id`=`userID` WHERE `likee_id` = :user AND `liker_stat` = 1 AND `likee_stat` = 1");
+			
+            // $stmt->bindParam(':user', $_SESSION['id']);
+            // $stmt->execute();
+            // $info = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            // $con->query("USE matcha");
+            $sql = ("SELECT `User`,`userID` FROM `users` JOIN `likes` ON `likee_id`=`userID` WHERE `liker_id` = :user AND liker_stat = 1 AND `likee_stat` = 1");
+            // $stmt->bindParam(':user', $_SESSION['id']);
+            // $stmt->execute();
+            // $ret = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            // $fin = array_merge($ret, $info);
+            foreach ($fin as $key => $value) {
+                echo '<p onclick="showPart(this);" id='.$value["User"].' data-pid='.$value["userID"].' class="uname">'.$value["User"].'</p><br>';
+            } 
+            // $con = null;
+        } catch (PDOException $e) {
+            print "Error : " . $e->getMessage() . "<br/>";
+            die();
+        }
+        break;
+        case 'sendMessage':
+        $newmsg = $_REQUEST['chat'].$_SESSION['username'] .': '. $_REQUEST['message'];
+        $newmsg = explode('<br>', $newmsg);
+        $new = json_encode($newmsg);
+        var_dump($new); 
+        // $con = new PDO("mysql:host=localhost", "root", "123456");
+        // $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        // $con->query("USE matcha");
+        $sql = ("UPDATE `likes` SET `chat` = :chat WHERE `liker_id`= :id AND `likee_id`= :usid OR `likee_id`= :id AND `liker_id`= :usid");
+        // $stmt->bindParam(':id', $_SESSION['id']);
+        // $stmt->bindParam(':usid', $_REQUEST['user']);
+        // $stmt->bindValue(':chat', $new);
+        // $stmt->execute();
+        //$con = null;
+         echo 1; 
+        break;
+		case 'getMessages':
+		// $con = new PDO("mysql:host=localhost", "root", "123456");
+		// $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		// $con->query("USE matcha");
+		$sql = ("SELECT * FROM `likes` WHERE `liker_id`= :id AND `likee_id`= :usid OR `likee_id`= :id AND `liker_id`= :usid");
+		// $stmt->bindParam(':id', $_SESSION['id']);
+		// $stmt->bindParam(':usid', $_REQUEST['user']);
+		// $stmt->execute();
+		// $info = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $chat = '';
+        echo json_encode($info[0]);
+       // var_dump($info);
+        /* foreach ($info as $key) {
+            $chat .= '<div class="single-message">
+            <strong>' . $key->user . ': </strong><br /> <p>' . $key->message . '</p>
+            <br/>
+            <span>' . date('h:i a', strtotime($key->date)) . '</span>
+            </div>
+            <div class="clear"></div>
+            ';
+        } */
+      //  echo $chat;
+        break; 
 }
 
 
