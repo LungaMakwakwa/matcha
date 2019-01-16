@@ -226,6 +226,9 @@
           <?php
 
             $sql = "SELECT * FROM likes WHERE likee_id = $user_id AND liker_id = $userid OR likee_id = $userid AND liker_id = $user_id";
+            echo "my id = $user_id";
+            echo "her_id id = $userid";
+
             $db->query($sql);
             $liker = $db->first();
             $likee_stat = $liker->likee_stat;
@@ -233,7 +236,7 @@
             $likee_id = $liker->likee_id;
             $liker_id = $liker->liker_id;
             
-            if (($likee_stat == 1 && $likee_id == $user_id) || ($liker_stat == 1 && $liker_id == $user_id))
+            if (($likee_stat == 1 && $likee_id == $userid) || ($liker_stat == 1 && $liker_id == $userid))
             {
               echo '<button id = "like" class="w3-btn w3-red like_btn" data-status = "like" data-likee = '.$user_id.' data-liker = '.$userid.'  style="text-shadow:1px 1px 0 #444" id="like"><b>unlike</b></button>';
             }

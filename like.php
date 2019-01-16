@@ -8,6 +8,7 @@
         $button = $_POST['liked'];
         $stat = $_POST['stat'];
 
+        echo "stat = $stat";
 
         $user = new User();
         if (Input::exists())
@@ -21,7 +22,7 @@
             $liker = $db->query($sql);
             //var_dump($liker);
             $numlikes = $liker->count();
-            echo $numlikes;
+            //echo $numlikes;
             if ($numlikes === 0)
             {
                 $db->insert('likes', array(
@@ -56,10 +57,27 @@
                 //     }
                 // }
             }
-            if ($numlikes == 1)
+            if ($stat === 'Like back')
             {
-                $sql = "UPDATE likes SET likeback = 1 WHERE likee_id = $likee_id AND liker_id = $liker_id OR likee_id = $liker_id AND liker_id = $likee_id";
+                $sql = "UPDATE likes SET likee_stat = 1 WHERE likee_id = $likee_id AND liker_id = $liker_id OR likee_id = $liker_id AND liker_id = $likee_id";
                 $db->query($sql);
+            }
+
+            if ($stat === 'unlike')
+            {
+                //echo "i am here";
+                if ($likee_id === $user->data()->user_id)
+                {
+                    //echo "i should be here here";
+                    $sql = "UPDATE likes SET likee_stat = 0 WHERE likee_id = $likee_id AND liker_id = $liker_id OR likee_id = $liker_id AND liker_id = $likee_id";
+                    $db->query($sql);
+                }
+                else if ($liker_id === $user->data()->user_id)
+                {
+                    //echo "but i am be here here";
+                    $sql = "UPDATE likes SET liker_stat = 0 WHERE likee_id = $likee_id AND liker_id = $liker_id OR likee_id = $liker_id AND liker_id = $likee_id";
+                    $db->query($sql);
+                }
             }
                 
         //     else
