@@ -21,6 +21,7 @@
 
 		 $user = new User();
 		 $username = $user->data()->username;
+		 $user_id = $user->data()->user_id;
 
 		echo $username; 
 		 
@@ -30,11 +31,37 @@
 		
 		<div class="chat_wrapper">
 			
+			<div><?php 
+				$db = DB::getInstance();
+
+				$sql = "SELECT * FROM likes WHERE likee_id = $user_id OR liker_id = $user_id";
+				$db->query($sql);
+				$chaters = $db->results();
+				// var_dump ($chaters);
+				foreach ($chaters as $charter => $value) {
+					if ($value->liker_id === $user_id)
+					{
+						$sql = "SELECT * FROM users WHERE user_id = $value->likee_id";
+						$db->query($sql);
+						$usernames = $db->first();
+						//var_dump($usernames->username);
+						echo $usernames->username;
+					}
+					else if ($value->likee_id === $user_id)
+					{
+						$sql = "SELECT * FROM users WHERE user_id = $value->liker_id";
+						$db->query($sql);
+						$usernames = $db->first();
+						echo $usernames->username;
+					}
+				}
+
+			?></div>
 			<div id="abc"></div>
 			<div id="chat"></div>
 
 			<form method="POST" id="messageFrm">
-				<textarea name="message" cols="30" rows="7" class="textarea" placeholder="Please Type a message to send"></textarea>
+				<textarea id="textarea" name="message" cols="30" rows="7" class="textarea" placeholder="Please Type a message to send"></textarea>
 			</form>
 
 		</div>
@@ -43,60 +70,61 @@
 	</div>
 
 
+	<script src="test_rahul3chat.js"></script>
 	<script>
 
-		LoadChat();
+		// LoadChat();
 
 
-		setInterval(function(){
+		// setInterval(function(){
 		
-				LoadChat();
+		// 		LoadChat();
 		
-		}, 1000);
+		// }, 1000);
 
 
-		function LoadChat()
-		{
-			$.post('chat_messages.php?action=getMessages', function(response){
+		// function LoadChat()
+		// {
+		// 	$.post('chat_messages.php?action=getMessages', function(response){
 				
-				var scrollpos = $('#chat').scrollTop();
-				var scrollpos = parseInt(scrollpos) + 520;
-				var scrollHeight = $('#chat').prop('scrollHeight');
+		// 		var scrollpos = $('#chat').scrollTop();
+		// 		var scrollpos = parseInt(scrollpos) + 520;
+		// 		var scrollHeight = $('#chat').prop('scrollHeight');
 
-				$('#chat').html(response);
+		// 		$('#chat').html(response);
 
-				if( scrollpos < scrollHeight ){
+		// 		if( scrollpos < scrollHeight ){
 					
-				}else{
-					$('#chat').scrollTop( $('#chat').prop('scrollHeight') );
-				}
+		// 		}else{
+		// 			$('#chat').scrollTop( $('#chat').prop('scrollHeight') );
+		// 		}
 
-			});
-		}
+		// 	});
+		// }
 		
-		$('.textarea').keyup(function(e){
-			if( e.which == 13 ){
-				$('form').submit();
-			}
-		});
+		// $('.textarea').keyup(function(e){
+		// 	if( e.which == 13 ){
+		// 		$('form').submit();
+		// 	}
+		// });
 
 
-		$('form').submit(function(){
+		// $('form').submit(function(){
 
-			var message = $('.textarea').val();
+		// 	var message = $('.textarea').val();
 
-			$.post('chat_messages.php?action=sendMessage&message='+message, function(response){
+		// 	$.post('chat_messages.php?action=sendMessage&message='+message, function(response){
 
-				if( response==1 ){
-					LoadChat();
-					document.getElementById('messageFrm').reset();
-				}
+		// 		if( response==1 ){
+		// 			LoadChat();
+		// 			document.getElementById('messageFrm').reset();
+		// 		}
 
-			});
+		// 	});
 
-			return false;
+		// 	return false;
 
-		});
+		// });
 
 
 	</script>

@@ -64,6 +64,7 @@ switch ($_REQUEST['action']) {
 		// $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		// $con->query("USE matcha");
         $sql4 = ("SELECT * FROM `likes` WHERE `liker_id`= $user_id AND `likee_id`= $userid OR `likee_id`= $user_id AND `liker_id`= $userid");
+        
         echo "sql4 = $sql4";
 		// $stmt->bindParam(':id', $_SESSION['id']);
 		// $stmt->bindParam(':usid', $_REQUEST['user']);
@@ -71,8 +72,8 @@ switch ($_REQUEST['action']) {
 		// $info = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $chat = '';
         echo json_encode($info[0]);
-       // var_dump($info);
-        /* foreach ($info as $key) {
+        var_dump($info);
+        foreach ($info as $key) {
             $chat .= '<div class="single-message">
             <strong>' . $key->user . ': </strong><br /> <p>' . $key->message . '</p>
             <br/>
@@ -80,8 +81,8 @@ switch ($_REQUEST['action']) {
             </div>
             <div class="clear"></div>
             ';
-        } */
-      //  echo $chat;
+        }
+        echo $chat;
         break; 
 }
 
