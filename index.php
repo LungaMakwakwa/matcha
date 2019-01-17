@@ -195,6 +195,7 @@
                   <input type="text" name = "username" id="username" class="form-control" style = "width:200%" required>
                 </div>
             </div>
+            <input type = "hidden" name = "location" id="location" value = "">
 
             <!---------------------- Name/last Name -------------------------->
 
@@ -224,6 +225,8 @@
                   </div>
                 </div>
             </div>
+
+
 
             <!---------------------- Password -------------------------->
 
@@ -377,9 +380,7 @@
     <!----- SCRIPT FOR LOAD JQUERY ----->
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="one_page_js/div_call.js"></script>
-    
-
-
+    <script src="one_page_js/location.js"></script>
 
   <!----- STYLE FOR PASSWORD PATTERN ----->
 
