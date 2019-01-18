@@ -4,7 +4,7 @@
 	this.off();
 	stop();
    });  */
-
+user = ''
    $(document).ready(function () {
 	/* LoadChat(); */
 	LoadUsers();
@@ -23,11 +23,20 @@
 		}
 	});
 
+	$("#chat_user").on('click',function(){
+		//alert("fuck yeah");
+		alert(this.getAttribute("data-user_id"));
+		user = this.getAttribute("data-user_id");
+		LoadChat(user);
+	});
+
 
 	$('form').submit(function () {
 		var chat = escape($('#chat').html());
 		var message = $('#textarea').val();
+		alert(user);
 	    $.post('chat_messages.php?action=sendMessage&message=' + message +'&chat='+chat +'&user='+user , function (response) {
+
 			//console.log(response);
 			//alert(response);
 		/* 	if (response == 1) { */
@@ -54,7 +63,7 @@
 	   });  */
 
 
-	user = 0;
+	//user = 0;
 	
 
 	function LoadUsers() {
@@ -64,24 +73,30 @@
 	}
 
 
+	// {{"user":"11","message":"helllllo","time":"14:42pm"},{"user":"4","message":"yes","time":"14:42pm"}}
+
 	function LoadChat(user) {
+		alert(user);
 		$.post('chat_messages.php?action=getMessages&user='+user, function (response) {
-			console.log("test:  " +response);
+			//console.log("test:  " +response);
 			themessages = JSON.parse(response);
-			themessages = JSON.parse(themessages["chat"]);
-			console.log(JSON.parse(themessages["chat"]));
-			console.log(themessages["chat"]);
-			const length = Object.getOwnPropertyNames(themessages);
-		/* 	alert(length.length); */
+			//console.log(themessages);
+			parsedChat = JSON.parse(themessages["chat"]);
+			//console.log(JSON.parse(themessages["chat"]));
+			console.log(parsedChat);
+			const length = Object.getOwnPropertyNames(parsedChat);
+		 	alert(length.length);
 			$('#chat').html('');
 			for(var t = 0; t < length.length - 1; t++){
-				alert("heriheriogherg");
-				$('#chat').append(themessages[t] + '<br>');
+				//alert("heriheriogherg");
+				$('#chat').append(parsedChat[t]['message']);
+				$('#chat').append(parsedChat[t]['time'] + '<br>');
+			//	console.log(parsedChat[0['message']]);
 			}
 			var scrollpos = $('#chat').scrollTop();
 			var scrollpos = parseInt(scrollpos) + 520;
 			var scrollHeight = $('#chat').prop('scrollHeight');
-			console.log(JSON.parse(response));
+			//console.log(JSON.parse(response));
 			//$('#chat').html(response);
 			if (scrollpos < scrollHeight) {
 
@@ -94,9 +109,9 @@
 	
 
 
-	function showPart(theParticipant){
-		user = theParticipant.getAttribute("data-pid");
-		LoadChat(user);
-		$("#textarea").show();
+	// function showPart(theParticipant){
+	// 	user = theParticipant.getAttribute("data-pid");
+	// 	LoadChat(user);
+	// 	$("#textarea").show();
 
-	}
+	// }

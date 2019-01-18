@@ -45,14 +45,15 @@
 						$db->query($sql);
 						$usernames = $db->first();
 						//var_dump($usernames->username);
-						echo $usernames->username;
+						echo "<button id = 'chat_user' data-user_id = '$value->likee_id'>$usernames->username</button>";
 					}
 					else if ($value->likee_id === $user_id)
 					{
 						$sql = "SELECT * FROM users WHERE user_id = $value->liker_id";
 						$db->query($sql);
 						$usernames = $db->first();
-						echo $usernames->username;
+						echo "$usernames->username";
+						echo "<button id = 'chat_user' data-user_id = '$value->liker_id'>$usernames->username</button>";
 					}
 				}
 
