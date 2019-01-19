@@ -72,63 +72,6 @@
 
 
 	<script src="test_rahul3chat.js"></script>
-	<script>
-
-		// LoadChat();
-
-
-		// setInterval(function(){
-		
-		// 		LoadChat();
-		
-		// }, 1000);
-
-
-		// function LoadChat()
-		// {
-		// 	$.post('chat_messages.php?action=getMessages', function(response){
-				
-		// 		var scrollpos = $('#chat').scrollTop();
-		// 		var scrollpos = parseInt(scrollpos) + 520;
-		// 		var scrollHeight = $('#chat').prop('scrollHeight');
-
-		// 		$('#chat').html(response);
-
-		// 		if( scrollpos < scrollHeight ){
-					
-		// 		}else{
-		// 			$('#chat').scrollTop( $('#chat').prop('scrollHeight') );
-		// 		}
-
-		// 	});
-		// }
-		
-		// $('.textarea').keyup(function(e){
-		// 	if( e.which == 13 ){
-		// 		$('form').submit();
-		// 	}
-		// });
-
-
-		// $('form').submit(function(){
-
-		// 	var message = $('.textarea').val();
-
-		// 	$.post('chat_messages.php?action=sendMessage&message='+message, function(response){
-
-		// 		if( response==1 ){
-		// 			LoadChat();
-		// 			document.getElementById('messageFrm').reset();
-		// 		}
-
-		// 	});
-
-		// 	return false;
-
-		// });
-
-
-	</script>
 
 
 </body>
