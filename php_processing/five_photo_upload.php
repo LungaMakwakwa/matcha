@@ -47,7 +47,6 @@ if ($uploadOk == 0) {
     $image_to = $target_dir.$user_id.$username.rand(0,999).".jpeg";
     if ($uploaded_image = move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $image_to)) {
 
-
         $db = DB::getInstance();
         
         $sql = "SELECT * FROM gallery WHERE user_id = $user_id";
@@ -56,31 +55,9 @@ if ($uploadOk == 0) {
         $num_res = $db->count();
         if ($num_res < 5)
         {
-
-        // $picture = $image_to;
-
-        // $image = $user->data()->img_name;
-        // $image = json_decode($image);
-
-        // $image->picture = $display_picture;
-        // $user->update(array('gallary' => json_encode($profile)));
-
-        //$json = json_encode(array("images" => $image_to));
-
-        //echo "<br>".$target_dir.$user_id.$username.rand(0,999).".jpeg"."<br>";
-        //echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
-        //Redirect::to("logged_in.php");
-
-        
-        //$imgid = Input::get('imgid');
-        //$db->insert('gallery', array(
-          //  'img_name' => $json,
-          //  'user_id' => $user->data()->user_id
-        //));
-
-        $db->insert('gallery', array(
-            'img_name' => $image_to,
-            'user_id' => $user_id));
+            $db->insert('gallery', array(
+                'img_name' => $image_to,
+                'user_id' => $user_id));
         }
         else
         {

@@ -367,9 +367,9 @@
         <div class="w3-col m12">
           <div class="w3-card w3-round w3-white">
             <div class="w3-container w3-padding">
-              <h6 class="w3-opacity">Social Media template by w3.css</h6>
-              <p contenteditable="true" class="w3-border w3-padding">Status: Feeling Blue</p>
-              <button type="button" class="w3-button w3-theme"><i class="fa fa-pencil"></i>  Post</button> 
+              <h6 class="w3-opacity">Add Bio</h6>
+                <p contenteditable="true" class="w3-border w3-padding" id = "bio"><?php echo $profile_data->Bio?></p>
+                <button type="button" class="w3-button w3-theme" id = "bio_post"><i class="fa fa-pencil"></i>  Post</button> 
             </div>
           </div>
         </div>
@@ -467,6 +467,7 @@
     
 
     <script src="js/main.js"></script>
+    <script src="one_page_js/submit.js"></script>
     <!--script src="one_page_js/search.js"></script> 
 
     <!--- W3 CSS SCRIPT -->

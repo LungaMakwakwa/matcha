@@ -40,6 +40,7 @@
                 $user = new User();
                 $email = filter_var(Input::get('email'), FILTER_VALIDATE_EMAIL);
                 $json = json_encode(array(
+                    "Bio" => "Status: Feeling Blue",
                     "DOB" => str_replace(",", "", Input::get('checkin_date')),
                     "intrest_gender" => Input::get('intrest_gender'),
                     "gender" => Input::get('gender'),

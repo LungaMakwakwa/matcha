@@ -45,28 +45,14 @@ switch ($_REQUEST['action']) {
 
 
         case 'sendMessage':
-        //$newmsg = $_REQUEST['chat'].$_SESSION['username'] .': '. $_REQUEST['message'];
-        // var_dump($_REQUEST);
+        $newmsg = $_REQUEST['chat'].$_SESSION['user'] .': '. $_REQUEST['message'];
+        //var_dump($_REQUEST);
         $userid = $_REQUEST['user'];
-        //echo "LOOOK $userid";
-        
-        //echo "userid = $userid";
-        //echo "user_id = $user_id";
     
         $newmsg = explode('<br>', $newmsg);
         $new = json_encode($newmsg);
-        //var_dump($new); 
-        // $con = new PDO("mysql:host=localhost", "root", "123456");
-        // $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        // $con->query("USE matcha");
         $sql = ("UPDATE `likes` SET `chat` = $new WHERE `liker_id`= $user_id AND `likee_id`= $userid OR `likee_id`= $user_id AND `liker_id`= $userid");
         $db->query($sql);
-        //echo "sql3 = $sql3";
-        // $stmt->bindParam(':id', $_SESSION['id']);
-        // $stmt->bindParam(':usid', $_REQUEST['user']);
-        // $stmt->bindValue(':chat', $new);
-        // $stmt->execute();
-        //$con = null;
          //echo 1; 
         break;
 
