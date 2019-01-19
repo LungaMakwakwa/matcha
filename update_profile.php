@@ -213,6 +213,65 @@
         }
     ?>
 
+
+    <div align = "center">
+    <div>
+    <form action = "dating_details.php" method="post" class="w3-container w3-card-4 w3-animate-left">
+        <h2 align="center">Dating Details</h2>
+
+        <!-- START PERSONAL DETAILS AREA-->
+        <div class = "field">
+            <p class="w3-animate-left">
+                <select class="w3-input" name="gender" id = "gender" style="width:90%">
+                    <option></option>
+                    <option>Male</option>
+                    <option>Female</option>
+                    <option>Transgender(M-F)</option>
+                    <option>Transgender(F-M)</option>
+                </select>
+                <label>Gender</label>
+            </p>
+        </div>
+        <div class = "field">
+            <p class="w3-animate-left">
+                <select class="w3-input" name="sexual_p" id = "sexual_p" style="width:90%">
+                    <option></option>
+                    <option>Male</option>
+                    <option>Female</option>
+                    <option>Bi-sexual</option>
+                    <option>Transgender(M-F)</option>
+                    <option>Transgender(F-M)</option>
+                </select>
+                <label>Sexual Preference</label>
+            </p>
+        </div>
+        <div class = "field">
+            <p class="w3-animate-left">
+                    <div class="icon"><span class="icon-calendar"></span></div>
+                    <input type="text" name = "checkin_date" id="checkin_date" class="form-control" style = "width:425%" required>
+                    <p></p>
+                <label>Date of Birth</label>
+            </p>
+        </div>
+        <div>
+            <button class="w3-button w3-section w3-teal w3-ripple"> Update </button>
+        </div>
+    </form>
+    </div>
+    <p> </p>
+    <?php
+        require_once "core/init.php";
+        if(Session::exists('dating_Details'))
+        {
+            $details = Session::flash('dating_Details');
+            echo "<p align = 'center'>$details</p>";
+        }
+    ?>
+
+
+
+    
+
     <!-- START NOTIFICATION DETAILS AREA-->
     <div>
     <form action = "notification.php" method="post" class="w3-container w3-card-4 w3-animate-right">
