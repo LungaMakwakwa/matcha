@@ -30,7 +30,7 @@
                     //echo $act;
                     if ($act === '1')
                     {
-                        if ($user->data()->status === "0")
+                        if ($user->data()->status !== "1")
                         {
                             $update = $db->query( "UPDATE users SET `status` = ? WHERE `user_id` = ?", array("status" => "1", "user_id"=>$user->data()->user_id));
                             

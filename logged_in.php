@@ -201,6 +201,9 @@
             }
           
           ?> class="w3-circle" style="height:106px;width:106px" alt="Avatar"></p>
+          <?php
+            echo "<p align = 'center'><i class='fa fa-star fa-fw w3-margin-right w3-text-theme'></i>Fame Rate: $profile_data->fame_rating Points</p>";
+          ?>
          <button onclick= hide_choose() class="w3-button w3-block w3-red w3-section" id = "choose_file">Choose Image</button>
          <form action="photo_upload.php" method="post" enctype="multipart/form-data">
             <input type="file" name= "fileToUpload" id="fileToUpload" class="w3-button w3-block w3-red w3-section" style = "display:none">

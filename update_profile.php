@@ -39,13 +39,13 @@
 
         $db = DB::getInstance();
         $user = new User();
+
         $name = $user->data()->first_name;
         $surname = $user->data()->last_name;
         $username = $user->data()->username;
         $user_id = $user->data()->user_id;
         $profile_data = json_decode($user->data()->profile);
         
-
         function age_cal($dob)
         {
             $dateOfBirth = $dob;

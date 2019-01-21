@@ -1,7 +1,46 @@
 <?php
 
-    echo ($_GET['user_id']);
+    require_once 'core/init.php';
+  
+    $user = new User();
+    $db = DB::getInstance();
+    //echo ($_GET['user_id']);
+    $user_id = $_GET['user_id'];
+    $userid = $user->data()->user_id;
 
+    $test = new User($user_id);
+  
+    //var_dump($test->data()->profile);
+    // exit();
+    $sql = "SELECT * FROM fame_rate WHERE viewer_id = $userid AND viewed_id = $user_id";
+    $db->query($sql);
+    $count = $db->count();
+
+    
+    if ($count === 0)
+    {
+      $db->insert('fame_rate', array(
+        'viewer_id' => $userid,
+        'viewed_id' => $user_id));
+      
+        $profile = $test->data()->profile;
+        $profile = json_decode($profile);
+      
+        $profile->fame_rating += 10;
+        // echo $fame_rating + 10; 
+        $test->update(array('profile' => json_encode($profile)), $test->data()->user_id);
+      
+      
+    }
+    else
+    {
+        $profile = $test->data()->profile;
+        // var_dump ($profile);
+        $profile = json_decode($profile);
+        $profile->fame_rating += 10; 
+        $test->update(array('profile' => json_encode($profile)), $test->data()->user_id);
+    }
+    
 
 ?>
 
@@ -38,7 +77,6 @@
   </head>
   <body>
   <?php
-	require_once 'core/init.php';
         if (Session::exists('home'))
         {
             echo '<p>' .Session::flash('home').'</p>';
@@ -221,10 +259,13 @@
             {
               echo ("Avatar_male.png");
             }
-          
           ?> class="w3-circle" style="height:106px;width:106px" alt="Avatar"></p>
           <?php
-
+            if ($images->status !== "1")
+            {
+              echo "<p align = 'center'>Last Seen: $images->status</p>";
+            }
+            echo "<p align = 'center'><i class='fa fa-star fa-fw w3-margin-right w3-text-theme'></i>Fame Rate: $profile_data->fame_rating Points</p>";
             $sql = "SELECT * FROM likes WHERE likee_id = $user_id AND liker_id = $userid OR likee_id = $userid AND liker_id = $user_id";
             // echo "my id = $user_id";
             // echo "her_id id = $userid";

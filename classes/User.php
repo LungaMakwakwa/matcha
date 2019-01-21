@@ -27,14 +27,14 @@
                         //process Logout
                     }
                 }
-                else
-                {
-                    $this->find($user);
-                }
+            }
+            else
+            {
+                $this->find($user);
             }
         }
 
-        public function update($fields = array())
+        public function update($fields = array(), $id = NULL)
         {
             if ($this->isLoggedIn())
             {

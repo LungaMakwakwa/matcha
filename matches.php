@@ -209,8 +209,10 @@
             {
               echo ("Avatar_male.png");
             }
-          
           ?> class="w3-circle" style="height:106px;width:106px" alt="Avatar"></p>
+          <?php
+                echo "<p align = 'center'><i class='fa fa-star fa-fw w3-margin-right w3-text-theme'></i>Fame Rate: $profile_data->fame_rating Points</p>";
+          ?>
          <button onclick= hide_choose() class="w3-button w3-block w3-red w3-section" id = "choose_file">Choose Image</button>
          <form action="photo_upload.php" method="post" enctype="multipart/form-data">
             <input type="file" name= "fileToUpload" id="fileToUpload" class="w3-button w3-block w3-red w3-section" style = "display:none">
@@ -404,6 +406,7 @@
           echo '<img src="'.$profile_data->display_picture.'" style="width:100%" class="w3-margin-bottom">';
           echo '<p>Age: '.age_cal($profile_data->DOB).'</p>';
           echo '<p>Gender: '.$profile_data->gender.'</p>';
+          echo "<p><i class='fa fa-star fa-fw w3-margin-right w3-text-theme'></i>Fame Rate: $profile_data->fame_rating Points</p>";
           //removed button ID
           //echo '<button type="button" data-status = "like" data-likee="'.$images[$i]->user_id.'" data-liker="'.$user->data()->user_id.'" class="w3-button w3-theme-d1 w3-margin-bottom like_btn"><i class="fa fa-thumbs-up"></i>  Like</button> ';
           //echo '<button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-thumbs-down"></i>  block</button> ';

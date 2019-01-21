@@ -46,7 +46,8 @@
                     "gender" => Input::get('gender'),
                     "display_picture" => "Avatar.png",
                     "status" => "0",
-                    "location" => Input::get('location')
+                    "location" => Input::get('location'),
+                    "fame_rating" => "0"
                 ));
                 echo $json;
 
