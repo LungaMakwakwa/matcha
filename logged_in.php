@@ -378,6 +378,7 @@
         </div>
       </div>
       <?php
+      
         $db = DB::getInstance();
         $db->get("gallery",array('user_id', '=', $user->data()->user_id));
         $images = $db->results();

@@ -31,7 +31,8 @@
   </head>
   <body>
   <?php
-	require_once 'core/init.php';
+        
+        require_once 'core/init.php';
         if (Session::exists('home'))
         {
             echo '<p>' .Session::flash('home').'</p>';
@@ -386,6 +387,59 @@
         </div>
       </div>
       <?php
+
+                
+
+        // Straight:
+        // [gender: male, pref: female] || [gender: female, pref: male]
+
+        // - Look for opposite gender and opposite preference
+        // - AND bi people of opposite gender
+
+        if ($profile_data->gender === "Male" && $profile_data->intrest_gender === "Female")
+        {
+          //$sql  = "SELECT * FROM `users`  WHERE json_unquote(json_extract(`info`, ‘$.gender’)) = female AND NOT json_unquote(json_extract(`info`, '$.pref')) = gay AND NOT `userID` = :id";
+          $sql = "SELECT * FROM `users` WHERE `profile['Gender']` = Female AND `profile['Intrest_gender']` = Male";
+        }
+
+
+        if ($profile_data->gender === "Female" && $profile_data->intrest_gender === "Male")
+        {
+          $sql  = "SELECT * FROM `users`  WHERE json_unquote(json_extract(`info`, ‘$.gender’)) = female AND NOT json_unquote(json_extract(`info`, '$.pref')) = gay AND NOT `userID` = :id";
+        }
+
+
+        // GAY;
+        // [gender: male, pref: male] || [gender: female, pref: female]
+        if ($profile_data->gender === "Male" && $profile_data->intrest_gender === "Male")
+        {
+          $sql = "SELECT * FROM `users`  WHERE json_unquote(json_extract(`info`, ‘$.gender’)) = :same gender AND NOT json_unquote(json_extract(`info`, '$.pref')) = straight AND NOT `userID` = :id";
+        }
+
+        if ($profile_data->gender === "Female" && $profile_data->intrest_gender === "Female")
+        {
+          $sql = "SELECT * FROM `users`  WHERE json_unquote(json_extract(`info`, ‘$.gender’)) = :same gender AND NOT json_unquote(json_extract(`info`, '$.pref')) = straight AND NOT `userID` = :id";
+        }
+
+        // BI :
+        // -all straight with opposite gender
+        // -all preference that’s bi
+        // -all gays of same gender
+        if ($profile_data->gender === "Male" || $profile_data->gender === "Female" && $profile_data->intrest_gender === "both")
+        {
+          $sql = "SELECT * FROM `users`  WHERE
+          json_unquote(json_extract(`info`, '$.pref')) = straight AND  json_unquote(json_extract(`info`, ‘$.gender’)) = :opposite
+          OR
+          json_unquote(json_extract(`info`, '$.pref')) = gay AND  json_unquote(json_extract(`info`, ‘$.gender’)) = :same
+          OR
+          json_unquote(json_extract(`info`, '$.pref')) = bi
+          AND NOT `userID` = :id";
+        }
+
+
+
+
+
         $db = DB::getInstance();
         $db->get("users",array('user_id', '>=', 0));
         $images = $db->results();
@@ -394,7 +448,7 @@
         $i = 0;
         while ($i < $num_images)
         {
-          echo '<a href=view_profile.php?user_id='.$images[$i]->user_id.'>';
+          //echo '<a href=view_profile.php?user_id='.$images[$i]->user_id.'>';
           $profile_data = json_decode($images[$i]->profile);
           echo '<div class="w3-container w3-card w3-white w3-round w3-margin"><br>';
           //echo '<img src="/w3images/avatar6.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">';
@@ -408,12 +462,12 @@
           echo '<p>Gender: '.$profile_data->gender.'</p>';
           echo "<p><i class='fa fa-star fa-fw w3-margin-right w3-text-theme'></i>Fame Rate: $profile_data->fame_rating Points</p>";
           //removed button ID
-          //echo '<button type="button" data-status = "like" data-likee="'.$images[$i]->user_id.'" data-liker="'.$user->data()->user_id.'" class="w3-button w3-theme-d1 w3-margin-bottom like_btn"><i class="fa fa-thumbs-up"></i>  Like</button> ';
+          echo '<button type="button" data-status = "like" data-id="'.$images[$i]->user_id.'"  class="w3-button w3-theme-d1 w3-margin-bottom view_btn">View Profile</button> ';
           //echo '<button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-thumbs-down"></i>  block</button> ';
           //echo '<input type = "hidden" value = "'.$images[$i]->user_id.'" name = "'.$images[$i]->user_id.'" id = "data-this_shit">';
           //echo '<input type = "hidden" value = "'.$user->data()->user_id.'" name = "'.$user->data()->user_id.'" id = "data-this_shit2">';
           echo '</div>';
-          echo '</a>';
+          //echo '</a>';
           $i++;
         }
       ?>
@@ -489,6 +543,7 @@
     
 
     <script src="js/main.js"></script>
+    <script src="one_page_js/submit.js"></script>
     <!--<script src = "one_page_js/test.js"></script>
     script src="one_page_js/search.js"></script> 
 

@@ -1,49 +1,3 @@
-<?php
-
-    require_once 'core/init.php';
-  
-    $user = new User();
-    $db = DB::getInstance();
-    //echo ($_GET['user_id']);
-    $user_id = $_GET['user_id'];
-    $userid = $user->data()->user_id;
-
-    $test = new User($user_id);
-  
-    //var_dump($test->data()->profile);
-    // exit();
-    $sql = "SELECT * FROM fame_rate WHERE viewer_id = $userid AND viewed_id = $user_id";
-    $db->query($sql);
-    $count = $db->count();
-
-    
-    if ($count === 0)
-    {
-      $db->insert('fame_rate', array(
-        'viewer_id' => $userid,
-        'viewed_id' => $user_id));
-      
-        $profile = $test->data()->profile;
-        $profile = json_decode($profile);
-      
-        $profile->fame_rating += 10;
-        // echo $fame_rating + 10; 
-        $test->update(array('profile' => json_encode($profile)), $test->data()->user_id);
-      
-      
-    }
-    else
-    {
-        $profile = $test->data()->profile;
-        // var_dump ($profile);
-        $profile = json_decode($profile);
-        $profile->fame_rating += 10; 
-        $test->update(array('profile' => json_encode($profile)), $test->data()->user_id);
-    }
-    
-
-?>
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -77,6 +31,8 @@
   </head>
   <body>
   <?php
+
+        require_once 'core/init.php';
         if (Session::exists('home'))
         {
             echo '<p>' .Session::flash('home').'</p>';
@@ -292,18 +248,6 @@
             }else{
               echo '<button id = "like" class="w3-btn w3-red like_btn" data-status = "like" data-likee = '.$user_id.' data-liker = '.$userid.' style="text-shadow:1px 1px 0 #444" id="like"><b>Like</b></button>';
             }
-            // if (($likee_stat == 1 && $likee_id == $userid) || ($liker_stat == 1 && $liker_id == $userid))
-            // {
-            //   echo '<button id = "like" class="w3-btn w3-red like_btn" data-status = "like" data-likee = '.$user_id.' data-liker = '.$userid.'  style="text-shadow:1px 1px 0 #444" id="like"><b>unlike</b></button>';
-            // }
-            // else if (($liker_stat == 1 && $likee_stat == 0 && $likee_id) || ($liker_stat == 0 && $likee_stat == 1 && $liker_id))
-            // {
-            //   echo '<button id = "like" class="w3-btn w3-red like_btn" data-status = "like" data-likee = '.$user_id.' data-liker = '.$userid.' style="text-shadow:1px 1px 0 #444" id="like"><b>Like back</b></button>';
-            // }
-            // else 
-            // {
-            //   echo '<button id = "like" class="w3-btn w3-red like_btn" data-status = "like" data-likee = '.$user_id.' data-liker = '.$userid.' style="text-shadow:1px 1px 0 #444" id="like"><b>Like</b></button>';
-            // }
   
           ?>
          <form action="photo_upload.php" method="post" enctype="multipart/form-data">
