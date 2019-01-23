@@ -8,6 +8,9 @@
                 case 'post':
                     return (!empty($_POST)) ? true : false;
                 break;
+                case 'request':
+                    return (!empty($_REQUEST)) ? true : false;
+                break;
                 case 'get':
                     return (!empty($_GET)) ? true : false;
                 break;
@@ -26,6 +29,10 @@
             else if (isset($_GET[$item]))
             {
                 return $_GET[$item];
+            }
+            else if (isset($_REQUEST[$item]))
+            {
+                return $_REQUEST[$item];
             }
             return '';
         }
