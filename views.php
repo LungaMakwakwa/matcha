@@ -27,8 +27,8 @@
         $profile = json_decode($profile);
       
         $profile->fame_rating += 10;
-        $profile->notification = $user->data()->username + $profile->notification;
-        var_dump ($profile);        
+        $profile->notification[] = $user->data()->username." Viewed your profile";
+        //var_dump ($profile);        
         // echo $fame_rating + 10; 
         $test->update(array('profile' => json_encode($profile)), $test->data()->user_id);
 
@@ -41,8 +41,8 @@
         // var_dump ($profile);
         $profile = json_decode($profile);
         $profile->fame_rating += 10; 
-        $profile->notification = $user->data()->username + $profile->notification;
-        var_dump ($profile);
+        $profile->notification[] = $user->data()->username." Viewed your profile";
+        //var_dump ($profile);
         $test->update(array('profile' => json_encode($profile)), $test->data()->user_id);
     }
     //Redirect::to("view_profile.php?user=".$user_id);

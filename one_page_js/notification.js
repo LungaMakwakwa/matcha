@@ -33,13 +33,13 @@ $('#Notifications_icon').hover(function () {
 			return [notes[key]];
 		});
 		for (i = 0; i < result.length; i++) {
-			$('#Notifications').append('<p class="w3-bar-item w3-button">' + result[i] + '</p>');
+			$('#Notifications').append('<p class="w3-bar-item w3-button" style = "color:black;">' + result[i] + '</p>');
 		}
 	}
 });
 
 $('#NotificationsBtn').click(function () {
-	Ajax('notifications.php', 'POST', 'removenotes=removenotes', true);
+	Ajax('notification.php', 'POST', 'removenotes=removenotes', true);
 	$("#Notifications p").remove();
 })
 

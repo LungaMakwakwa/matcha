@@ -152,10 +152,10 @@
   <a href="profile.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Account Settings"><i class="fa fa-user"></i></a>
   <a href="chat.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Messages"><i class="fa fa-envelope"></i></a>
   <div class="w3-dropdown-hover w3-hide-small">
-    <button id = "NotificationsBtn" class="w3-button w3-padding-large" title="Notifications"><i class="fa fa-bell"></i><span class="w3-badge w3-right w3-small w3-green" id = "notes_count"></span></button>     
+    <button id = "Notifications_icon" class="w3-button w3-padding-large" title="Notifications"><i class="fa fa-bell"></i><span class="w3-badge w3-right w3-small w3-green" id = "notes_count"></span></button>     
     <div class="w3-dropdown-content w3-card-4 w3-bar-block" style="width:300px" id = "Notifications_icon">
         <p id = "Notifications"></p>
-        
+        <p class="w3-bar-item w3-button" style = "color:black;" id = "NotificationsBtn"> Clear </p>
     </div>
   </div>
   
