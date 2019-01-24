@@ -74,12 +74,34 @@
                     //echo "i should be here here";
                     $sql = "UPDATE likes SET likee_stat = 0 WHERE likee_id = $likee_id AND liker_id = $liker_id OR likee_id = $liker_id AND liker_id = $likee_id";
                     $db->query($sql);
+
+                    $user2 = new User($liker_id);
+                    $profile = $user2->data()->profile;
+                    $profile = json_decode($profile);
+                    
+                    var_dump($profile);
+                    $profile->fame_rating += 50;
+                    $profile->notification[] = $user->data()->username." Unliked your profile";
+                        
+                // echo $fame_rating + 10; 
+                $user2->update(array('profile' => json_encode($profile)), $user2->data()->user_id);
                 }
                 else if ($liker_id === $user->data()->user_id)
                 {
                     //echo "but i am be here here";
                     $sql = "UPDATE likes SET liker_stat = 0 WHERE likee_id = $likee_id AND liker_id = $liker_id OR likee_id = $liker_id AND liker_id = $likee_id";
                     $db->query($sql);
+
+                    $user2 = new User($likee_id);
+                    $profile = $user2->data()->profile;
+                    $profile = json_decode($profile);
+                    
+                    var_dump($profile);
+                    $profile->fame_rating += 50;
+                    $profile->notification[] = $user->data()->username." Unliked your profile";
+
+                    // echo $fame_rating + 10; 
+                    $user2->update(array('profile' => json_encode($profile)), $user2->data()->user_id);
                 }
             }
         }

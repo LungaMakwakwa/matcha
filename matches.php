@@ -398,13 +398,13 @@
         if ($profile_data->gender === "Male" && $profile_data->intrest_gender === "Female")
         {
           //$sql  = "SELECT * FROM `users`  WHERE json_unquote(json_extract(`info`, ‘$.gender’)) = female AND NOT json_unquote(json_extract(`info`, '$.pref')) = gay AND NOT `userID` = :id";
-          $sql = "SELECT * FROM `users` WHERE `profile['Gender']` = Female AND `profile['Intrest_gender']` = Male";
+          $sql = "SELECT * FROM `users` WHERE json_unquote(json_extract(`profile`, '$.gender')) = 'Female' AND json_unquote(json_extract(`profile`, '$.intrest_gender')) = 'Male' ORDER BY json_unquote(json_extract(`profile`, '$.fame_rating')) ASC";
         }
 
 
         if ($profile_data->gender === "Female" && $profile_data->intrest_gender === "Male")
         {
-          $sql  = "SELECT * FROM `users`  WHERE json_unquote(json_extract(`info`, ‘$.gender’)) = female AND NOT json_unquote(json_extract(`info`, '$.pref')) = gay AND NOT `userID` = :id";
+          $sql = "SELECT * FROM `users` WHERE json_unquote(json_extract(`profile`, '$.gender')) = 'Male' AND json_unquote(json_extract(`profile`, '$.intrest_gender')) = 'Female'";
         }
 
 
@@ -412,35 +412,34 @@
         // [gender: male, pref: male] || [gender: female, pref: female]
         if ($profile_data->gender === "Male" && $profile_data->intrest_gender === "Male")
         {
-          $sql = "SELECT * FROM `users`  WHERE json_unquote(json_extract(`info`, ‘$.gender’)) = :same gender AND NOT json_unquote(json_extract(`info`, '$.pref')) = straight AND NOT `userID` = :id";
+          $sql = "SELECT * FROM `users` WHERE json_unquote(json_extract(`profile`, `$.gender`)) = Male AND json_unquote(json_extract(`profile`,`$.intrest_gender`)) = Male";
         }
 
         if ($profile_data->gender === "Female" && $profile_data->intrest_gender === "Female")
         {
-          $sql = "SELECT * FROM `users`  WHERE json_unquote(json_extract(`info`, ‘$.gender’)) = :same gender AND NOT json_unquote(json_extract(`info`, '$.pref')) = straight AND NOT `userID` = :id";
+          $sql = "SELECT * FROM `users` WHERE json_unquote(json_extract(`profile`, `$.gender`)) = Female AND json_unquote(json_extract(`profile`,`$.intrest_gender`)) = Female";
         }
 
         // BI :
         // -all straight with opposite gender
         // -all preference that’s bi
         // -all gays of same gender
-        if ($profile_data->gender === "Male" || $profile_data->gender === "Female" && $profile_data->intrest_gender === "both")
-        {
-          $sql = "SELECT * FROM `users`  WHERE
-          json_unquote(json_extract(`info`, '$.pref')) = straight AND  json_unquote(json_extract(`info`, ‘$.gender’)) = :opposite
-          OR
-          json_unquote(json_extract(`info`, '$.pref')) = gay AND  json_unquote(json_extract(`info`, ‘$.gender’)) = :same
-          OR
-          json_unquote(json_extract(`info`, '$.pref')) = bi
-          AND NOT `userID` = :id";
-        }
+        // if ($profile_data->gender === "Male" || $profile_data->gender === "Female" && $profile_data->intrest_gender === "both")
+        // {
+        //   $sql = "SELECT * FROM `users`  WHERE
+        //   json_unquote(json_extract(`info`, '$.pref')) = straight AND  json_unquote(json_extract(`info`, ‘$.gender’)) = :opposite
+        //   OR
+        //   json_unquote(json_extract(`info`, '$.pref')) = gay AND  json_unquote(json_extract(`info`, ‘$.gender’)) = :same
+        //   OR
+        //   json_unquote(json_extract(`info`, '$.pref')) = bi
+        //   AND NOT `userID` = :id";
+        // }
 
 
 
-
-
-        $db = DB::getInstance();
-        $db->get("users",array('user_id', '>=', 0));
+        //$db = DB::getInstance();
+        //$db->get("users",array('user_id', '>=', 0));
+        $db->query($sql);
         $images = $db->results();
         $num_images = $db->count();
         //$profile_data = json_decode($images->profile);
