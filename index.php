@@ -272,8 +272,6 @@
                     <option></option>
                     <option>Male</option>
                     <option>Female</option>
-                    <option>Transgender(M-F)</option>
-                    <option>Transgender(F-M)</option>
                   </select>
                 </div>
                 <div class="col-md-6 form-group">
@@ -283,8 +281,6 @@
                     <option>Male</option>
                     <option>Female</option>
                     <option>Male / Female</option>
-                    <option>Transgender(M-F)</option>
-                    <option>Transgender(F-M)</option>
                   </select>
                 </div>
             </div>

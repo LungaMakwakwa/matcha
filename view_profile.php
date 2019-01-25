@@ -249,6 +249,19 @@
             }
   
           ?>
+          <?php
+
+            $profile = json_decode($user->data()->profile);
+            if ($profile->blocked == $user_id)
+            {
+              echo '<button id = "block" class="w3-btn w3-black block_btn" data-status = "like" data-likee = '.$user_id.' data-liker = '.$userid.'  style="text-shadow:1px 1px 0 #444" ><b>Unblock</b></button>';
+            }
+            else
+            {
+              echo '<button id = "block" class="w3-btn w3-black block_btn" data-status = "like" data-likee = '.$user_id.' data-liker = '.$userid.'  style="text-shadow:1px 1px 0 #444" ><b>Block</b></button>';
+            }
+
+          ?>
          <form action="photo_upload.php" method="post" enctype="multipart/form-data">
             <input type="file" name= "fileToUpload" id="fileToUpload" class="w3-button w3-block w3-red w3-section" style = "display:none">
            <input type="submit" value="Upload Image" name="submit" class="w3-button w3-block w3-green w3-section" id = "upload_image" style = "display:none">
