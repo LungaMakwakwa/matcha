@@ -40,11 +40,18 @@
                     else
                     {
                         echo "Please Activate your account";
+                        
+                        Session::flash('Activate', 'Please Activate your account');
+                        Redirect::to('index.php');
+
                     }
                     // echo "successful";
                 }
                 else
                 {
+                   
+                    Session::flash('login_fail', 'Sorry, logging in failed');
+                    Redirect::to('index.php');
                     echo '<p> Sorry, logging in failed</p>';
                 }
             }
@@ -53,6 +60,10 @@
                 foreach($validation->errors() as $error)
                 {
                     echo $error;
+                    
+                    Session::flash('error', $error);
+                    Redirect::to('index.php');
+
                 }
             }
         //}

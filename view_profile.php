@@ -251,10 +251,13 @@
           ?>
           <?php
 
-            $profile = json_decode($user->data()->profile);
-            if ($profile->blocked == $user_id)
+            if($db->results())
             {
-              echo '<button id = "block" class="w3-btn w3-black block_btn" data-status = "like" data-likee = '.$user_id.' data-liker = '.$userid.'  style="text-shadow:1px 1px 0 #444" ><b>Unblock</b></button>';
+                $profile = json_decode($user->data()->profile);
+                if ($profile->blocked == $user_id)
+                {
+                  echo '<button id = "block" class="w3-btn w3-black block_btn" data-status = "like" data-likee = '.$user_id.' data-liker = '.$userid.'  style="text-shadow:1px 1px 0 #444" ><b>Unblock</b></button>';
+                }
             }
             else
             {
@@ -330,12 +333,12 @@
           <p>Interests</p>
           <p>
           <?php
-              $intrests = $profile_data->intrests;
+              
               
               //var_dump($intrests);
-              
-              if($intrests)
+               if($db->results())
               {
+                $intrests = $profile_data->intrests;
                 $N = count($intrests);
                 for($i=0; $i < $N; $i++)
                 {

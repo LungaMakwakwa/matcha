@@ -64,6 +64,9 @@
                             'act_hash' => md5(Input::get('email')),
                             'profile' =>  $json
                         ));
+                        
+                        Redirect::to('index.php');
+                        exit();
                     // Redirect
                     }
 
@@ -74,6 +77,7 @@
                 }
                 else
                 {
+                    
                     echo "email invalid Please <a href = register.php>Register again</a>";
                     exit();
                 }
@@ -101,11 +105,13 @@
         $mail = mail($to,$subject,$txt);
         if ($mail)
         {
-            echo "Confirmation Email Sent.";
+            Session::flash('email_act', 'Account activation email sent');
+            Redirect::to('index.php');
         }
         else
         {
-            echo "Email invalid";
+            Session::flash('invalid', 'invalid email address');
+            Redirect::to('index.php');
         }
         //echo $txt;
     }

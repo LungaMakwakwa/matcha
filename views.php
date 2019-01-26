@@ -32,6 +32,11 @@
         // echo $fame_rating + 10; 
         $test->update(array('profile' => json_encode($profile)), $test->data()->user_id);
 
+        $db->insert('history', array(
+            'user_id' =>  $test->data()->user_id,
+            'username_notif' =>$user->data()->username." Viewed your profile",
+        ));
+
       
       
     }
@@ -44,6 +49,11 @@
         $profile->notification[] = $user->data()->username." Viewed your profile";
         //var_dump ($profile);
         $test->update(array('profile' => json_encode($profile)), $test->data()->user_id);
+
+        $db->insert('history', array(
+            'user_id' =>  $test->data()->user_id,
+            'username_notif' =>$user->data()->username." Viewed your profile",
+        ));
     }
     //Redirect::to("view_profile.php?user=".$user_id);
     

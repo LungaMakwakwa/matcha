@@ -47,6 +47,13 @@
                 // echo $fame_rating + 10; 
                 $user2->update(array('profile' => json_encode($profile)), $user2->data()->user_id);
 
+                $db->insert('history', array(
+                    'user_id' =>  $likee_id,
+                    'username_notif' =>$user->data()->username." Liked your profile",
+                ));
+
+
+
             }
             if ($stat === 'Like back')
             {

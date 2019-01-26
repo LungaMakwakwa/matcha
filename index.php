@@ -99,11 +99,32 @@
             <div align = "center">
               <button id = "login_button" class = "w3-btn  w3-border w3-border-orange w3-round-large" style = "width:40%"> Login </button>
               <button id = "register_button" class = "w3-btn  w3-border w3-border-orange w3-round-large" style = "width:40%">Register </button>
+              <?php
+                  if (Session::exists('Activate'))
+                  {
+                      echo '<p align = "center" style = "color:white">' .Session::flash('Activate').'</p>';
+                  }
+                  else if (Session::exists('login_fail'))
+                  {
+                      echo '<p align = "center" style = "color:white">' .Session::flash('login_fail').'</p>';
+                  }
+                  else if (Session::exists('error'))
+                  {
+                      echo '<p align = "center" style = "color:white">' .Session::flash('error').'</p>';
+                  }
+                  else if (Session::exists('email_act'))
+                  {
+                      echo '<p align = "center" style = "color:white">' .Session::flash('email_act').'</p>';
+                  }
+                  else if (Session::exists('invalid'))
+                  {
+                      echo '<p align = "center" style = "color:white">' .Session::flash('invalid').'</p>';
+                  }
+              ?>
             </div>
           </div>
         </div>
       </div>
-
       <a class="mouse smoothscroll" href="#next">
         <div class="mouse-icon">
           <span class="mouse-wheel"></span>

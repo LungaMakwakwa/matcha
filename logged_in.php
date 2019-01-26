@@ -235,9 +235,27 @@
       <!-- Accordion -->
       <div class="w3-card w3-round">
         <div class="w3-white">
-          <button onclick="myFunction('Demo1')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i> My Groups</button>
+          <button onclick="myFunction('Demo1')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i> History</button>
           <div id="Demo1" class="w3-hide w3-container">
-            <p>Some text..</p>
+            <?php
+                $sql = "SELECT * FROM history WHERE `user_id` = $user_id";
+                $db->query($sql);
+                $history = $db->results();
+                $count = $db->count();
+                if ($history)
+                {
+                  for($i = 0; $count > $i; $i++)
+                  {
+                    echo "<p>".$history[$i]->username_notif."</p>";
+                  }
+                }
+                else
+                {
+                    echo "<p>No History</p>";
+                }
+                //var_dump($history[0]->username_notif)
+                
+              ?>
           </div>
           <button onclick="myFunction('Demo2')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-calendar-check-o fa-fw w3-margin-right"></i> My Events</button>
           <div id="Demo2" class="w3-hide w3-container">

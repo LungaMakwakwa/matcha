@@ -413,7 +413,9 @@
       <?php
 
                 
-
+        $user = new User();
+        $profile = json_decode($user->data()->profile);
+        // var_dump($profile->blocked);
         // Straight:
         // [gender: male, pref: female] || [gender: female, pref: male]
 
