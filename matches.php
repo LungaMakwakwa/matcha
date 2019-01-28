@@ -393,19 +393,32 @@
           <div class="w3-card w3-round w3-white">
             <div class="w3-container w3-padding">
               <h6 class="w3-opacity">Sort</h6>
-              <label>Age</label>
-              <select id = "age">
+              <label>Age Between</label>
+              <select id = "age1" width = "10%">
                 <option>None</option>
-                <option>Between 18 - 25</option>
-                <option>Between 25 - 30</option>
-                <option>Above 30+</option>  
+                <option>18</option>
+                <option>25</option>
+                <option>30</option>
+                <option>35</option>
+                <option>40</option> 
+                <option>45+</option> 
               </select>
+              <label> And</label>
+              <select id = "age2" width = "10%">
+                <option>None</option>
+                <option>18</option>
+                <option>25</option>
+                <option>30</option>
+                <option>35</option>
+                <option>40</option>
+              </select></br>
+              </br>
               <label>Location</label>
               <select id = "loc">
                 <option>None</option>
                 <option>Same Location</option>
                 <option>Not in same Location</option>
-              </select>              
+              </select></br>          
               <button type="button" class="w3-button w3-theme" id = "sort"><i class="fa fa-pencil"></i>  Post</button> 
             </div>
           </div>

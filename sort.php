@@ -1,13 +1,16 @@
 <?php
 
+    require_once "core/init.php";
+
     var_dump($_REQUEST);
 
-    $age = $_REQUEST['age'];
+    $age1 = $_REQUEST['age1'];
+    $age2 = $_REQUEST['age2'];
     $loc = $_REQUEST['loc'];
 
     $user = new User();
     $profile = json_decode($user->data()->profile);
-    if ($loc === 'None' && $age === 'None')
+    if ($loc === 'None' && $age1 === 'None' && $age1 === 'None')
     {
         if ($profile_data->gender === "Male" && $profile_data->intrest_gender === "Female")
         {
@@ -30,7 +33,7 @@
         }
     }
 
-    else if ($loc !== 'None' && $age !== 'None')
+    else if ($loc !== 'None' && $age1 !== 'None' && $age2 !== 'None' && $age1 < $age2)
     {
         if ($profile_data->gender === "Male" && $profile_data->intrest_gender === "Female")
         {
@@ -53,7 +56,7 @@
         }
     }
 
-    else if ($loc !== 'None' && $age === 'None')
+    else if ($loc !== 'None' && $age1 === 'None')
     {
         if ($profile_data->gender === "Male" && $profile_data->intrest_gender === "Female")
         {
@@ -76,7 +79,7 @@
         }
     }
 
-    else if ($loc === 'None' && $age !== 'None')
+    else if ($loc === 'None' && $age1 !== 'None' && $age2 !== 'None' && $age1 < $age2)
     {
         if ($profile_data->gender === "Male" && $profile_data->intrest_gender === "Female")
         {

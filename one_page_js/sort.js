@@ -1,8 +1,10 @@
 $("#sort").on('click',function(){
     alert("yeah ya");
-    age = document.getElementById("age");
+    age1 = document.getElementById("age1");
+    age2 = document.getElementById("age2");
     loc = document.getElementById("loc");
-    alert (age.value);
+    alert (age1.value);
+    alert (age2.value);
     alert (loc.value);
 
 
@@ -26,20 +28,20 @@ $("#sort").on('click',function(){
     // }
 
     var hr = new XMLHttpRequest();
-    var url = "matches.php";
+    var url = "sort.php";
      hr.open("POST", url, true);
      hr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
      hr.onreadystatechange = function() {
         if(hr.readyState == 4 && hr.status == 200) {
             var return_data = hr.responseText;
             alert(return_data);
-            $("#test").html(return_data);
+            //$("#test").html(return_data);
         }
     }
     // user = document.getElementById("name").textContent;
     // var sumn = this.getAttribute("data-likee")
     // var user = this.getAttribute("data-liker");
-    ret = "age="+age.value+"&loc="+loc.value;
+    ret = "age1="+age1.value+"&age2="+age1.value+"&loc="+loc.value;
     // alert(user);
     hr.send(ret);
 });
