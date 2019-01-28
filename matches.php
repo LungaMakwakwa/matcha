@@ -394,17 +394,19 @@
             <div class="w3-container w3-padding">
               <h6 class="w3-opacity">Sort</h6>
               <label>Age</label>
-              <select>
+              <select id = "age">
+                <option>None</option>
                 <option>Between 18 - 25</option>
                 <option>Between 25 - 30</option>
                 <option>Above 30+</option>  
               </select>
               <label>Location</label>
-              <select>
+              <select id = "loc">
+                <option>None</option>
                 <option>Same Location</option>
                 <option>Not in same Location</option>
               </select>              
-              <button type="button" class="w3-button w3-theme"><i class="fa fa-pencil"></i>  Post</button> 
+              <button type="button" class="w3-button w3-theme" id = "sort"><i class="fa fa-pencil"></i>  Post</button> 
             </div>
           </div>
         </div>
@@ -415,28 +417,19 @@
                 
         $user = new User();
         $profile = json_decode($user->data()->profile);
-        // var_dump($profile->blocked);
-        // Straight:
-        // [gender: male, pref: female] || [gender: female, pref: male]
-
-        // - Look for opposite gender and opposite preference
-        // - AND bi people of opposite gender
 
         if ($profile_data->gender === "Male" && $profile_data->intrest_gender === "Female")
         {
-          //$sql  = "SELECT * FROM `users`  WHERE json_unquote(json_extract(`info`, ‘$.gender’)) = female AND NOT json_unquote(json_extract(`info`, '$.pref')) = gay AND NOT `userID` = :id";
-          $sql = "SELECT * FROM `users` WHERE json_unquote(json_extract(`profile`, '$.gender')) = 'Female' AND json_unquote(json_extract(`profile`, '$.intrest_gender')) = 'Male' ORDER BY json_unquote(json_extract(`profile`, '$.fame_rating')) ASC";
+          $sql = "SELECT * FROM `users` WHERE json_unquote(json_extract(`profile`, '$.gender')) = 'Female' AND json_unquote(json_extract(`profile`, '$.intrest_gender')) = 'Male' ORDER BY json_unquote(json_extract(`profile`, '$.fame_rating')) DESC";
         }
 
 
         if ($profile_data->gender === "Female" && $profile_data->intrest_gender === "Male")
         {
-          $sql = "SELECT * FROM `users` WHERE json_unquote(json_extract(`profile`, '$.gender')) = 'Male' AND json_unquote(json_extract(`profile`, '$.intrest_gender')) = 'Female'";
+          $sql = "SELECT * FROM `users` WHERE json_unquote(json_extract(`profile`, '$.gender')) = 'Male' AND json_unquote(json_extract(`profile`, '$.intrest_gender')) = 'Female' ORDER BY json_unquote(json_extract(`profile`, '$.fame_rating')) DESC";
         }
 
 
-        // GAY;
-        // [gender: male, pref: male] || [gender: female, pref: female]
         if ($profile_data->gender === "Male" && $profile_data->intrest_gender === "Male")
         {
           $sql = "SELECT * FROM `users` WHERE json_unquote(json_extract(`profile`, `$.gender`)) = Male AND json_unquote(json_extract(`profile`,`$.intrest_gender`)) = Male";
@@ -447,52 +440,23 @@
           $sql = "SELECT * FROM `users` WHERE json_unquote(json_extract(`profile`, `$.gender`)) = Female AND json_unquote(json_extract(`profile`,`$.intrest_gender`)) = Female";
         }
 
-        // BI :
-        // -all straight with opposite gender
-        // -all preference that’s bi
-        // -all gays of same gender
-        // if ($profile_data->gender === "Male" || $profile_data->gender === "Female" && $profile_data->intrest_gender === "both")
-        // {
-        //   $sql = "SELECT * FROM `users`  WHERE
-        //   json_unquote(json_extract(`info`, '$.pref')) = straight AND  json_unquote(json_extract(`info`, ‘$.gender’)) = :opposite
-        //   OR
-        //   json_unquote(json_extract(`info`, '$.pref')) = gay AND  json_unquote(json_extract(`info`, ‘$.gender’)) = :same
-        //   OR
-        //   json_unquote(json_extract(`info`, '$.pref')) = bi
-        //   AND NOT `userID` = :id";
-        // }
-
-
-
-        //$db = DB::getInstance();
-        //$db->get("users",array('user_id', '>=', 0));
         $db->query($sql);
         $images = $db->results();
         $num_images = $db->count();
-        //$profile_data = json_decode($images->profile);
         $i = 0;
         while ($i < $num_images)
         {
-          //echo '<a href=view_profile.php?user_id='.$images[$i]->user_id.'>';
           $profile_data = json_decode($images[$i]->profile);
           echo '<div class="w3-container w3-card w3-white w3-round w3-margin"><br>';
-          //echo '<img src="/w3images/avatar6.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">';
           echo '<span class="w3-right w3-opacity">Picture</span>';
-          //echo '<h4><span class = "dot" '.status($images[$i]->status).'>'.$images[$i]->first_name.'</span> '.$images[$i]->last_name.'</h4><br>';
           echo '<h4 class="w3-center"><span class="dot" '.status($images[$i]->status).'></span>'.$images[$i]->first_name.' '.$images[$i]->last_name.'</h4>';
           echo '<hr class="w3-clear">';
-          //echo '<p>Have you seen this?</p>';
           echo '<img src="'.$profile_data->display_picture.'" style="width:100%" class="w3-margin-bottom">';
           echo '<p>Age: '.age_cal($profile_data->DOB).'</p>';
           echo '<p>Gender: '.$profile_data->gender.'</p>';
           echo "<p><i class='fa fa-star fa-fw w3-margin-right w3-text-theme'></i>Fame Rate: $profile_data->fame_rating Points</p>";
-          //removed button ID
           echo '<button type="button" data-status = "like" data-id="'.$images[$i]->user_id.'"  class="w3-button w3-theme-d1 w3-margin-bottom view_btn">View Profile</button> ';
-          //echo '<button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-thumbs-down"></i>  block</button> ';
-          //echo '<input type = "hidden" value = "'.$images[$i]->user_id.'" name = "'.$images[$i]->user_id.'" id = "data-this_shit">';
-          //echo '<input type = "hidden" value = "'.$user->data()->user_id.'" name = "'.$user->data()->user_id.'" id = "data-this_shit2">';
           echo '</div>';
-          //echo '</a>';
           $i++;
         }
       ?>
@@ -568,6 +532,7 @@
     <script src="js/main.js"></script>
     <script src="one_page_js/submit.js"></script>
     <script src="one_page_js/notification.js"></script>
+    <script src="one_page_js/sort.js"></script>
 
     <script>
 // Accordion
