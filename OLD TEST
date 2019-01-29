@@ -1,0 +1,99 @@
+/*1--------------------------------------------------------------------------------*/
+
+    if ($loc === 'None' && $age1 === 'None' && $age1 === 'None')
+    {
+        if ($profile_data->gender === "Male" && $profile_data->intrest_gender === "Female")
+        {
+        $sql = "SELECT * FROM `users` WHERE json_unquote(json_extract(`profile`, '$.gender')) = 'Female' AND json_unquote(json_extract(`profile`, '$.intrest_gender')) = 'Male' ORDER BY json_unquote(json_extract(`profile`, '$.fame_rating')) DESC";
+        }
+
+        if ($profile_data->gender === "Female" && $profile_data->intrest_gender === "Male")
+        {
+        $sql = "SELECT * FROM `users` WHERE json_unquote(json_extract(`profile`, '$.gender')) = 'Male' AND json_unquote(json_extract(`profile`, '$.intrest_gender')) = 'Female' ORDER BY json_unquote(json_extract(`profile`, '$.fame_rating')) DESC";
+        }
+
+        if ($profile_data->gender === "Male" && $profile_data->intrest_gender === "Male")
+        {
+        $sql = "SELECT * FROM `users` WHERE json_unquote(json_extract(`profile`, `$.gender`)) = Male AND json_unquote(json_extract(`profile`,`$.intrest_gender`)) = Male";
+        }
+
+        if ($profile_data->gender === "Female" && $profile_data->intrest_gender === "Female")
+        {
+        $sql = "SELECT * FROM `users` WHERE json_unquote(json_extract(`profile`, `$.gender`)) = Female AND json_unquote(json_extract(`profile`,`$.intrest_gender`)) = Female";
+        }
+    }
+
+    /*2--------------------------------------------------------------------------------*/
+
+    else if ($loc !== 'None' && $age1 !== 'None' && $age2 !== 'None' && $age1 < $age2)
+    {
+        if ($profile_data->gender === "Male" && $profile_data->intrest_gender === "Female")
+        {
+        $sql = "SELECT * FROM `users` WHERE json_unquote(json_extract(`profile`, '$.gender')) = 'Female' AND json_unquote(json_extract(`profile`, '$.intrest_gender')) = 'Male' ORDER BY json_unquote(json_extract(`profile`, '$.fame_rating')) DESC";
+        }
+
+        if ($profile_data->gender === "Female" && $profile_data->intrest_gender === "Male")
+        {
+        $sql = "SELECT * FROM `users` WHERE json_unquote(json_extract(`profile`, '$.gender')) = 'Male' AND json_unquote(json_extract(`profile`, '$.intrest_gender')) = 'Female' ORDER BY json_unquote(json_extract(`profile`, '$.fame_rating')) DESC";
+        }
+
+        if ($profile_data->gender === "Male" && $profile_data->intrest_gender === "Male")
+        {
+        $sql = "SELECT * FROM `users` WHERE json_unquote(json_extract(`profile`, `$.gender`)) = Male AND json_unquote(json_extract(`profile`,`$.intrest_gender`)) = Male";
+        }
+
+        if ($profile_data->gender === "Female" && $profile_data->intrest_gender === "Female")
+        {
+        $sql = "SELECT * FROM `users` WHERE json_unquote(json_extract(`profile`, `$.gender`)) = Female AND json_unquote(json_extract(`profile`,`$.intrest_gender`)) = Female";
+        }
+    }
+
+    /*3--------------------------------------------------------------------------------*/
+
+    else if ($loc !== 'None' && $age1 === 'None')
+    {
+        if ($profile_data->gender === "Male" && $profile_data->intrest_gender === "Female")
+        {
+        $sql = "SELECT * FROM `users` WHERE json_unquote(json_extract(`profile`, '$.gender')) = 'Female' AND json_unquote(json_extract(`profile`, '$.intrest_gender')) = 'Male' ORDER BY json_unquote(json_extract(`profile`, '$.fame_rating')) DESC";
+        }
+
+        if ($profile_data->gender === "Female" && $profile_data->intrest_gender === "Male")
+        {
+        $sql = "SELECT * FROM `users` WHERE json_unquote(json_extract(`profile`, '$.gender')) = 'Male' AND json_unquote(json_extract(`profile`, '$.intrest_gender')) = 'Female' ORDER BY json_unquote(json_extract(`profile`, '$.fame_rating')) DESC";
+        }
+
+        if ($profile_data->gender === "Male" && $profile_data->intrest_gender === "Male")
+        {
+        $sql = "SELECT * FROM `users` WHERE json_unquote(json_extract(`profile`, `$.gender`)) = Male AND json_unquote(json_extract(`profile`,`$.intrest_gender`)) = Male";
+        }
+
+        if ($profile_data->gender === "Female" && $profile_data->intrest_gender === "Female")
+        {
+        $sql = "SELECT * FROM `users` WHERE json_unquote(json_extract(`profile`, `$.gender`)) = Female AND json_unquote(json_extract(`profile`,`$.intrest_gender`)) = Female";
+        }
+    }
+
+    /*4--------------------------------------------------------------------------------*/
+
+    else if ($loc === 'None' && $age1 !== 'None' && $age2 !== 'None' && $age1 < $age2)
+    {
+        if ($profile_data->gender === "Male" && $profile_data->intrest_gender === "Female")
+        {
+        $sql = "SELECT * FROM `users` WHERE json_unquote(json_extract(`profile`, '$.gender')) = 'Female' AND json_unquote(json_extract(`profile`, '$.intrest_gender')) = 'Male' ORDER BY json_unquote(json_extract(`profile`, '$.fame_rating')) DESC";
+        }
+
+        if ($profile_data->gender === "Female" && $profile_data->intrest_gender === "Male")
+        {
+        $sql = "SELECT * FROM `users` WHERE json_unquote(json_extract(`profile`, '$.gender')) = 'Male' AND json_unquote(json_extract(`profile`, '$.intrest_gender')) = 'Female' ORDER BY json_unquote(json_extract(`profile`, '$.fame_rating')) DESC";
+        }
+
+        if ($profile_data->gender === "Male" && $profile_data->intrest_gender === "Male")
+        {
+        $sql = "SELECT * FROM `users` WHERE json_unquote(json_extract(`profile`, `$.gender`)) = Male AND json_unquote(json_extract(`profile`,`$.intrest_gender`)) = Male";
+        }
+
+        if ($profile_data->gender === "Female" && $profile_data->intrest_gender === "Female")
+        {
+        $sql = "SELECT * FROM `users` WHERE json_unquote(json_extract(`profile`, `$.gender`)) = Female AND json_unquote(json_extract(`profile`,`$.intrest_gender`)) = Female";
+        }
+    }
