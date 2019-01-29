@@ -1,39 +1,88 @@
+<script>
+    function view(d)
+    {
+    //$(".view_btn").on('click', function(){
+
+        // id = $(this).attr("data-id");
+        //id = d.data-id;
+        //alert(d.data-id);
+        id = d.getAttribute("data-img");
+
+
+        var hr = new XMLHttpRequest();
+        var url = "views.php";
+         hr.open("POST", url, true);
+         hr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+         hr.onreadystatechange = function() {
+            if(hr.readyState == 4 && hr.status == 200) {
+                var return_data = hr.responseText;
+                //alert(return_data);
+                //console.log(return_data);
+                window.location = "view_profile.php?user_id="+id
+            }
+        }
+        ret = "user_id="+id;
+        hr.send(ret);
+
+    //});
+    }
+</script>
+
 <?php
 
     require_once "core/init.php";
 
-    var_dump($_REQUEST);
+    ///var_dump($_REQUEST);
 
-    $age1 = $_REQUEST['age1'];
-    $age2 = $_REQUEST['age2'];
-    $loc = $_REQUEST['loc'];
 
+    $db = DB::getInstance();
     $user = new User();
-    $profile = json_decode($user->data()->profile);
+    $profile_data = json_decode($user->data()->profile);
+
+    // $age1 = $_REQUEST['age1'];
+    // $age2 = $_REQUEST['age2'];
+    // $loc = $_REQUEST['loc'];
+
+    
+    // $profile = json_decode($user->data()->profile);
+    function status($status)
+    {
+        if ($status === "1")
+        {
+            return ('style="background-color:green;"');
+        }
+        else
+        {
+            return ('style="background-color:red;"');
+        }
+    }
+
 
     function sorts($gender, $pref)
     {   
+        $age1 = $_REQUEST['age1'];
+        $age2 = $_REQUEST['age2'];
+        $loc = $_REQUEST['loc'];
+        //var_dump($_REQUEST);
+        if ($_REQUEST['fame'] === 'Descending')
+        {
+            $fame = 'DESC';
+        }
+        else if ($_REQUEST['fame'] === 'Ascending')
+        {
+            $fame = 'ASC';
+        }
+
+
+        $user = new User();
+        $profile_data = json_decode($user->data()->profile);
+
         if ($loc === 'None' && $age1 === 'None' && $age1 === 'None')
         {
             if ($profile_data->gender === $gender && $profile_data->intrest_gender === $pref)
             {
-                $sql = "SELECT * FROM `users` WHERE json_unquote(json_extract(`profile`, '$.gender')) = $pref AND json_unquote(json_extract(`profile`, '$.intrest_gender')) = $gender ORDER BY json_unquote(json_extract(`profile`, '$.fame_rating')) DESC";
-            }
-        }
-
-        else if ($loc !== 'None' && $age1 !== 'None' && $age2 !== 'None' && $age1 < $age2)
-        {
-            if ($profile_data->gender === $gender && $profile_data->intrest_gender === $pref)
-            {
-                $sql = "SELECT * FROM `users` WHERE json_unquote(json_extract(`profile`, '$.gender')) = $pref AND json_unquote(json_extract(`profile`, '$.intrest_gender')) = $gender ORDER BY json_unquote(json_extract(`profile`, '$.fame_rating')) DESC";
-            }
-        }
-
-        else if ($loc !== 'None' && $age1 === 'None')
-        {
-            if ($profile_data->gender === $gender && $profile_data->intrest_gender === $pref)
-            {
-                $sql = "SELECT * FROM `users` WHERE json_unquote(json_extract(`profile`, '$.gender')) = $pref AND json_unquote(json_extract(`profile`, '$.intrest_gender')) = $gender ORDER BY json_unquote(json_extract(`profile`, '$.fame_rating')) DESC";
+                $sql = "SELECT * FROM `users` WHERE json_unquote(json_extract(`profile`, '$.gender')) = '$pref' AND json_unquote(json_extract(`profile`, '$.intrest_gender')) = '$gender' ORDER BY json_unquote(json_extract(`profile`, '$.fame_rating')) $fame";
+                return $sql;
             }
         }
 
@@ -41,14 +90,33 @@
         {
             if ($profile_data->gender === $gender && $profile_data->intrest_gender === $pref)
             {
-                $sql = "SELECT * FROM `users` WHERE json_unquote(json_extract(`profile`, '$.gender')) = $pref AND json_unquote(json_extract(`profile`, '$.intrest_gender')) = $gender ORDER BY json_unquote(json_extract(`profile`, '$.fame_rating')) DESC";
+                $sql = "SELECT * FROM `users` WHERE json_unquote(json_extract(`profile`, '$.age')) BETWEEN $age1 AND $age2 AND  json_unquote(json_extract(`profile`, '$.gender')) = '$pref' AND json_unquote(json_extract(`profile`, '$.intrest_gender')) = '$gender' ORDER BY json_unquote(json_extract(`profile`, '$.fame_rating')) $fame";
+                return $sql;
+            }
+        }
+
+        else if ($loc !== 'None' && $age1 === 'None' && $age2 === 'None')
+        {
+            if ($profile_data->gender === $gender && $profile_data->intrest_gender === $pref)
+            {
+                $sql = "SELECT * FROM `users` WHERE json_unquote(json_extract(`profile`, '$.gender')) = '$pref' AND json_unquote(json_extract(`profile`, '$.intrest_gender')) = '$gender' ORDER BY json_unquote(json_extract(`profile`, '$.fame_rating')) $fame";
+                return $sql;
+            }
+        }
+
+        else if ($loc !== 'None' && $age1 !== 'None' && $age2 !== 'None' && $age1 < $age2)
+        {
+            if ($profile_data->gender === $gender && $profile_data->intrest_gender === $pref)
+            {
+                $sql = "SELECT * FROM `users` WHERE json_unquote(json_extract(`profile`, '$.gender')) = '$pref' AND json_unquote(json_extract(`profile`, '$.intrest_gender')) = '$gender' ORDER BY json_unquote(json_extract(`profile`, '$.fame_rating')) $fame";
+                return $sql;
             }
         }
     }
 
-
-    
-
+    $sql = sorts($profile_data->gender, $profile_data->intrest_gender);
+    // echo $sql;
+    // exit();
     $db->query($sql);
     $images = $db->results();
     $num_images = $db->count();
@@ -61,13 +129,11 @@
       echo '<h4 class="w3-center"><span class="dot" '.status($images[$i]->status).'></span>'.$images[$i]->first_name.' '.$images[$i]->last_name.'</h4>';
       echo '<hr class="w3-clear">';
       echo '<img src="'.$profile_data->display_picture.'" style="width:100%" class="w3-margin-bottom">';
-      echo '<p>Age: '.age_cal($profile_data->DOB).'</p>';
+      //echo '<p>Age: '.age_cal($profile_data->DOB).'</p>';
       echo '<p>Gender: '.$profile_data->gender.'</p>';
       echo "<p><i class='fa fa-star fa-fw w3-margin-right w3-text-theme'></i>Fame Rate: $profile_data->fame_rating Points</p>";
-      echo '<button type="button" data-status = "like" data-id="'.$images[$i]->user_id.'"  class="w3-button w3-theme-d1 w3-margin-bottom view_btn">View Profile</button> ';
+      echo '<button onclick = "view(this);" type="button" data-status = "like" data-img="'.$images[$i]->user_id.'"  class="w3-button w3-theme-d1 w3-margin-bottom view_btn">View Profile</button> ';
       echo '</div>';
       $i++;
     }
-
-    
 ?>

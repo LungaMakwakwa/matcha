@@ -15,26 +15,28 @@
     hr.send(ret);
 }); */
 
+// function view()
+// {
+//     //$(".view_btn").on('click', function(){
 
-$(".view_btn").on('click', function(){
-
-    id = $(this).attr("data-id");
-    //alert(id);
+//         id = $(this).attr("data-id");
+//         alert(id);
 
 
-    var hr = new XMLHttpRequest();
-    var url = "views.php";
-     hr.open("POST", url, true);
-     hr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-     hr.onreadystatechange = function() {
-        if(hr.readyState == 4 && hr.status == 200) {
-            var return_data = hr.responseText;
-            //alert(return_data);
-            //console.log(return_data);
-            window.location = "view_profile.php?user_id="+id
-        }
-    }
-    ret = "user_id="+id;
-    hr.send(ret); 
+//         var hr = new XMLHttpRequest();
+//         var url = "views.php";
+//          hr.open("POST", url, true);
+//          hr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+//          hr.onreadystatechange = function() {
+//             if(hr.readyState == 4 && hr.status == 200) {
+//                 var return_data = hr.responseText;
+//                 //alert(return_data);
+//                 //console.log(return_data);
+//                 window.location = "view_profile.php?user_id="+id
+//             }
+//         }
+//         ret = "user_id="+id;
+//         hr.send(ret); 
 
-});
+//     //});
+// }
