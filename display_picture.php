@@ -45,12 +45,7 @@
         $user_id = $user->data()->user_id;
         $profile_data = json_decode($user->data()->profile);
         
-        if ($profile_data->display_picture === "Avatar.png")
-        {
-            Redirect::to("display_picture.php");
-        }
-
-        
+             
         function age_cal($dob)
         {
             $dateOfBirth = $dob;

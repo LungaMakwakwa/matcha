@@ -44,7 +44,6 @@
         $username = $user->data()->username;
         $user_id = $user->data()->user_id;
         $profile_data = json_decode($user->data()->profile);
-        
 
         function age_cal($dob)
         {
@@ -323,12 +322,11 @@
           <p>Interests</p>
           <p>
           <?php
-              
+              $intrests = $profile_data->intrests;
               //var_dump($intrests);
               
-              if($db->results())
+              if($intrests)
               {
-                $intrests = $profile_data->intrests;
                 $N = count($intrests);
                 for($i=0; $i < $N; $i++)
                 {
@@ -338,7 +336,7 @@
                 }
               }
               else
-                echo "<p align = 'center'>Add intrests below</p>";
+                echo "No Intrests";
 
           ?>
             <button onclick= hidden_div() class="w3-button w3-block w3-green w3-section">Add Intrests</button>

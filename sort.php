@@ -129,7 +129,7 @@
       echo '<h4 class="w3-center"><span class="dot" '.status($images[$i]->status).'></span>'.$images[$i]->first_name.' '.$images[$i]->last_name.'</h4>';
       echo '<hr class="w3-clear">';
       echo '<img src="'.$profile_data->display_picture.'" style="width:100%" class="w3-margin-bottom">';
-      //echo '<p>Age: '.age_cal($profile_data->DOB).'</p>';
+      echo '<p>Age: '.$profile_data->age.'</p>';
       echo '<p>Gender: '.$profile_data->gender.'</p>';
       echo "<p><i class='fa fa-star fa-fw w3-margin-right w3-text-theme'></i>Fame Rate: $profile_data->fame_rating Points</p>";
       echo '<button onclick = "view(this);" type="button" data-status = "like" data-img="'.$images[$i]->user_id.'"  class="w3-button w3-theme-d1 w3-margin-bottom view_btn">View Profile</button> ';

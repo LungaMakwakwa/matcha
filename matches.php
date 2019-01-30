@@ -47,14 +47,7 @@
         $profile_data = json_decode($user->data()->profile);
         
 
-        function age_cal($dob)
-        {
-            $dateOfBirth = $dob;
-            $today = date("Y-m-d");
-            $diff = date_diff(date_create($dateOfBirth), date_create($today));
-            return $diff->format('%y');
-        }
-
+        
         function status($status)
         {
             if ($status === "1")
@@ -237,7 +230,7 @@
          <p><i class="fa fa-<?php echo(strtolower($profile_data->gender)) ?> fa-fw w3-margin-right w3-text-theme"></i><?php echo($profile_data->gender) ?></p>
          <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i>Location</p>
          <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i><?php echo($profile_data->DOB) ?></p>
-         <p><i class="fa fa-hourglass fa-fw w3-margin-right w3-text-theme"></i><?php echo(age_cal($profile_data->DOB))?> Years old</p>
+         <p><i class="fa fa-hourglass fa-fw w3-margin-right w3-text-theme"></i><?php $profile_data->age?> Years old</p>
         </div>
       </div>
       <br>

@@ -3,6 +3,16 @@
 
     require_once 'core/init.php';
 
+
+    function age_cal($dob)
+        {
+            $dateOfBirth = $dob;
+            $today = date("Y-m-d");
+            $diff = date_diff(date_create($dateOfBirth), date_create($today));
+            return $diff->format('%y');
+        }
+
+
     //var_dump(Token::check(Input::get('token')));
 
     if (Input::exists())
@@ -40,8 +50,9 @@
                 $user = new User();
                 $email = filter_var(Input::get('email'), FILTER_VALIDATE_EMAIL);
                 $json = json_encode(array(
+                    "age" => age_cal(str_replace(",", "", Input::get('checkin_date'))),
                     "Bio" => "Status: Feeling Blue",
-                    "DOB" => str_replace(",", "", Input::get('checkin_date')),
+                    "DOB" => str_replace(",", "", Input::get('checkin_date')),    
                     "intrest_gender" => Input::get('intrest_gender'),
                     "gender" => Input::get('gender'),
                     "display_picture" => "Avatar.png",

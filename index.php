@@ -120,6 +120,22 @@
                   {
                       echo '<p align = "center" style = "color:white">' .Session::flash('invalid').'</p>';
                   }
+                  else if (Session::exists('re-pwd'))
+                  {
+                      echo '<p align = "center" style = "color:white">' .Session::flash('re-pwd').'</p>';
+                  }
+                  else if (Session::exists('no-re-pwd'))
+                  {
+                      echo '<p align = "center" style = "color:white">' .Session::flash('no-re-pwd').'</p>';
+                  }
+                  else if (Session::exists('Reset_done'))
+                  {
+                      echo '<p align = "center" style = "color:white">' .Session::flash('Reset_done').'</p>';
+                  }
+                  else if (Session::exists('Reset_not_done'))
+                  {
+                      echo '<p align = "center" style = "color:white">' .Session::flash('Reset_not_done').'</p>';
+                  }
               ?>
             </div>
           </div>
@@ -176,15 +192,17 @@
               <!-- --->
                 <div align = "center">
                   <button type = "submit" class="btn btn-primary btn-block text-white" style = "width:25%">Login</button>
-                  <a href="#">Forgot Password</a>
+                  <!-- <a href id = "forgot_pwdBtn">Forgot Password</a> -->
                 </div>
               </div>
 
             </form>
+             
           </div>
 
-
         </div>
+        <p></p>
+        <button class="btn btn-primary btn-block text-white" id = "forgot_pwdBtn">Forgot Password</button>
       </div>
     </section>
     </div>
@@ -318,11 +336,105 @@
     </section>
     </div>
 
-
     <!-------------------------------------------------------------->
     <!---------------------- Register Div -------------------------->
     <!-------------------------------------------------------------->
 
+
+    <!-------------------------------------------------------------->
+    <!---------------------- Forgot Password Div ------------------->
+    <!-------------------------------------------------------------->
+    
+    <div id = "forgot_pwd" style = 'display:none'>
+      <section class="section bg-light"  id="next">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-7 mx-auto text-center mb-5" data-aos="fade-up" data-aos-delay="100">
+              <h2 class="heading">Forgot Password</h2>
+            </div>
+          </div>
+          <div class="row">
+            <div class="block-32" data-aos="fade-up" data-aos-delay="100">
+
+              <form action="forgot_password.php" method = "post">
+
+                <!-- --->
+                <div class="row">
+                  <div class="col-md-6 form-group">
+                    <label for="re_email" align = "center">Profile Email Adress</label>
+                    <input type="text" name = "re_email" id="re_email" class="form-control" style = "width:200%" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+                  </div>
+                </div>
+
+                <!-- --->
+                  <div align = "center">
+                    <button type = "submit" class="btn btn-primary btn-block text-white" style = "width:25%">Send</button>
+                  </div>
+                </div>
+
+              </form>
+            </div>
+
+
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-------------------------------------------------------------->
+    <!---------------------- Forgot Password Div ------------------->
+    <!-------------------------------------------------------------->
+
+    <!-------------------------------------------------------------->
+    <!---------------------- New Password Div ---------------------->
+    <!-------------------------------------------------------------->
+
+    <div id = "reset" style = 'display:none'>
+      <section class="section bg-light"  id="next">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-7 mx-auto text-center mb-5" data-aos="fade-up" data-aos-delay="100">
+              <h2 class="heading">Enter New Password</h2>
+            </div>
+          </div>
+          <div class="row">
+            <div class="block-32" data-aos="fade-up" data-aos-delay="100">
+
+              <form action="new-push_pwd.php?email=<?php echo($_GET['email']); ?>" method = "post">
+
+                <!-- --->
+                <div class="row">
+                  <div class="col-md-6 form-group">
+                    <label for="password3" align = "center">Password</label>
+                    <input type="password" name = "password3" id="password3" class="form-control" style = "width:200%" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+                  </div>
+                </div>
+                <!-- --->
+                <div class="row">
+                  <div class="col-md-6 form-group">
+                    <label for="password4">Re-Enter Password</label>
+                    <input type="password" name = "password4" id="password4" class="form-control" style = "width:200%" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+                </div>
+                </div>
+
+
+                <!-- --->
+                  <div align = "center">
+                    <button type = "submit" class="btn btn-primary btn-block text-white" style = "width:25%">Update</button>
+                    <!-- <a href id = "forgot_pwdBtn">Forgot Password</a> -->
+                  </div>
+                </div>
+
+              </form>
+            </div>
+
+
+          </div>
+        </div>
+      </section>
+
+
+    <div>
 
 
     
@@ -464,6 +576,22 @@
             length.classList.add("invalid");
           }
         }
+
+        $(document).ready(function () {
+
+          if(window.location.href.indexOf('email=') > -1)
+          {
+            var x = document.getElementById("reset");
+            if (x.style.display === "none") 
+            {
+              x.style.display = "block";
+            }
+            $('html, body').animate({
+            scrollTop: $("#reset").offset().top
+            }, 1000)
+          }
+        });
+    
     </script>
 
   </body>

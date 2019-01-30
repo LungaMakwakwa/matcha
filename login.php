@@ -35,7 +35,17 @@
                             $update = $db->query( "UPDATE users SET `status` = ? WHERE `user_id` = ?", array("status" => "1", "user_id"=>$user->data()->user_id));
                             
                         }
-                        Redirect::to('logged_in.php');
+                        $data = json_decode($user->data()->profile);
+                        //var_dump ($data);
+                        if ($data->display_picture === 'Avatar.png')
+                        {
+                            Redirect::to('display_picture.php');    
+                        }
+                        else
+                        {
+                            //Redirect::to('logged_in.php');
+                        }
+                        
                     }
                     else
                     {
