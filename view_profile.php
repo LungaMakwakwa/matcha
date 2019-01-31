@@ -233,7 +233,7 @@
             $liker_id = $liker->liker_id;
             if (($likee_stat == 1 && $likee_id == $userid) || ($liker_stat == 1 && $liker_id == $userid))
             {
-              echo '<button id = "like" class="w3-btn w3-red like_btn" data-status = "like" data-likee = '.$user_id.' data-liker = '.$userid.'  style="text-shadow:1px 1px 0 #444" id="like"><b>unlike</b></button>';
+              echo '<button  id = "like" class="w3-btn w3-red like_btn" data-status = "like" data-likee = '.$user_id.' data-liker = '.$userid.'  style="text-shadow:1px 1px 0 #444" id="like"><b>unlike</b></button>';
             }
             else if (($liker_stat == 1 && $likee_stat == 0 && $likee_id) || ($liker_stat == 0 && $likee_stat == 1 && $liker_id))
             {
@@ -520,6 +520,24 @@ function openNav() {
     Redirect::to("index.php");
   }
 ?>
+
+  <div id="id01" class="w3-modal">
+    <div class="w3-modal-content">
+      <header class="w3-container w3-red"> 
+        <span onclick="document.getElementById('id01').style.display='none'" 
+        class="w3-button w3-display-topright">&times;</span>
+        <h2>Select Reason For Block</h2>
+      </header>
+      <div class="w3-container">
+        <p>Select reson for block and close at the top.</p>
+        <input type= "checkbox"> Fake Account.<br>
+        <input type= "checkbox"> Other.<br>
+      </div>
+      <footer class="w3-container w3-red">
+        <p></p>
+      </footer>
+    </div>
+  </div>
 
 
   </body>

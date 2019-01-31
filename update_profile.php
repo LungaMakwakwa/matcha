@@ -274,28 +274,11 @@
     <!-- START NOTIFICATION DETAILS AREA-->
     <div>
     <form action = "notification.php" method="post" class="w3-container w3-card-4 w3-animate-right">
-        <h2 align="center">Notifications</h2>
-        <input class="w3-animate-left" type="checkbox" name="notify" value="notify" 
-            <?php
-                require_once "core/init.php";
-                $user = new User();
-                $user_id = $user->data()->user_id;
-                $db = DB::getInstance();
-                $db->get("users",array('user_id', '=', $user_id));
-                $notify = $db->results();
-                $notify_no = $notify[0]->notification;
-                if ($notify_no === '1')
-                {
-                    echo ("checked");
-                }
-                else if ($notify_no === '0')  
-                {
-                    echo ("");
-                }
-            ?> 
-        > Send Notification Emails<br>
-        <div>
-            <button class="w3-button w3-section w3-teal w3-ripple"> Update </button>
+        <h2 align="center">Update Location</h2>
+        <input class="w3-input" id="locSearch" type='text' name="locSearch" placeholder="search Location"><br>
+            <select id="loc" class="loc" name="opt[]" multiple style="width: 50%">
+            </select>
+         <button class="w3-button w3-section w3-teal w3-ripple"> Update </button>
         </div>
     </form>
     </div>
@@ -373,6 +356,7 @@
 
     <script src="js/main.js"></script>
     <script src="one_page_js/notification.js"></script>
+    <script src="one_page_js/get_loc.js"></script>
     <!--script src="one_page_js/search.js"></script> 
 
     <!--- W3 CSS SCRIPT -->

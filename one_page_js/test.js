@@ -46,11 +46,14 @@ $('document').ready(function () {
         alert(this.getAttribute("data-liker"));
         //alert("booty");
         var btnblock = document.getElementById("block");
+
+        //document.getElementById("id01").style.display="block";
         //console.log(btnlike);
         var stat = btnblock.textContent;
         // alert(btnlike.textContent);
         // var blocked = 0;
         if (btnblock.textContent == 'Block') {
+            document.getElementById("id01").style.display="block";
             btnblock.textContent = 'Unblock';
             blocked = 1;
         }
