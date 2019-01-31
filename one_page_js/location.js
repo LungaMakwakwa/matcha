@@ -18,7 +18,7 @@ function getLocation() {
     }
 }
 function showPosition(position) {
-    url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + position.coords.latitude + "," + position.coords.longitude + "&key=AIzaSyA47t1t0JjL53u3KznXoMF_6oeVVjWTYaM";
+    url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + position.coords.latitude + "," + position.coords.longitude + "&key=AIzaSyAsfNvWU_CkDFroZY_UwQcqqrKarpwp_vI";
     $.post(url, function (response) {
         console.log("G API START");
         console.log(response.results[4]["geometry"]["location"]["lat"] + " , " + response.results[4]["geometry"]["location"]["lng"]);

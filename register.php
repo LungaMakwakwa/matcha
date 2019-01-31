@@ -58,7 +58,9 @@
                     "display_picture" => "Avatar.png",
                     "status" => "0",
                     "location" => Input::get('location'),
-                    "fame_rating" => "0"
+                    "fame_rating" => "0",
+                    "blocked" => array("0"),
+                    "blocker" => array("0")
                 ));
                 echo $json;
 

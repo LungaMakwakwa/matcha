@@ -6,30 +6,37 @@
     if ($_REQUEST['stat'] === "Block")
     {
         $user = new User();
+        $user2 = new User($_REQUEST['uid']);
+        
         $profile = $user->data()->profile;
         $profile = json_decode($profile);
-        
-        
-        var_dump($profile);
-        $profile->blocked = $_REQUEST['uid'];
-        //$profile->notification[] = $user->data()->username." Liked your profile";
-
-        // echo $fame_rating + 10; 
+        $profile->blocked[] = $_REQUEST['uid'];
         $user->update(array('profile' => json_encode($profile)), $user->data()->user_id);
+
+
+        // var_dump($profile);
+        $profile2 = $user2->data()->profile;
+        $profile2 = json_decode($profile2);
+        $profile2->blocker[] = $user->data()->user_id;
+        $user2->update(array('profile' => json_encode($profile2)), $user2->data()->user_id);
     }
     else if ($_REQUEST['stat'] === "Unblock")
     {
         $user = new User();
+        $user2 = new User($_REQUEST['uid']);
+
+        
         $profile = $user->data()->profile;
         $profile = json_decode($profile);
-        
-        
-        var_dump($profile);
         $profile->blocked = 0;
-        //$profile->notification[] = $user->data()->username." Liked your profile";
-
-        // echo $fame_rating + 10; 
         $user->update(array('profile' => json_encode($profile)), $user->data()->user_id);
+        
+        
+        $profile2 = $user2->data()->profile;
+        $profile2 = json_decode($profile2);
+        $profile->blocker = 0;
+        $user2->update(array('profile' => json_encode($profile)), $user2->data()->user_id);
+        
         
     }
 ?>
