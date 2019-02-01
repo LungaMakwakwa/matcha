@@ -225,8 +225,6 @@
                     <option></option>
                     <option>Male</option>
                     <option>Female</option>
-                    <option>Transgender(M-F)</option>
-                    <option>Transgender(F-M)</option>
                 </select>
                 <label>Gender</label>
             </p>
@@ -237,9 +235,7 @@
                     <option></option>
                     <option>Male</option>
                     <option>Female</option>
-                    <option>Bi-sexual</option>
-                    <option>Transgender(M-F)</option>
-                    <option>Transgender(F-M)</option>
+                    <option>Male/Female</option>
                 </select>
                 <label>Sexual Preference</label>
             </p>
@@ -271,18 +267,26 @@
 
     
 
-    <!-- START NOTIFICATION DETAILS AREA-->
+    <!-- START LOCATION DETAILS AREA-->
     <div>
-    <form action = "notification.php" method="post" class="w3-container w3-card-4 w3-animate-right">
+    <form action = "loc_upd.php" method="post" class="w3-container w3-card-4 w3-animate-right">
         <h2 align="center">Update Location</h2>
-        <input class="w3-input" id="locSearch" type='text' name="locSearch" placeholder="search Location"><br>
-            <select id="loc" class="loc" name="opt[]" multiple style="width: 50%">
-            </select>
-         <button class="w3-button w3-section w3-teal w3-ripple"> Update </button>
+        <input id="locSearch" type='text' name="locSearch" placeholder="search Location" class = "w3-input"><br>
+                <select id="loc" class="loc w3-input" name="opt[]" multiple style="width: 50%" >
+                </select>
+        <br><button class="w3-button w3-section w3-teal w3-ripple"> Update </button>
         </div>
     </form>
     </div>
     <p> </p>
+    <?php
+        require_once "core/init.php";
+        if(Session::exists('loc'))
+        {
+            $details = Session::flash('loc');
+            echo "<p align = 'center'>$details</p>";
+        }
+    ?>
 
     <!-- START PASSWORD DETAILS AREA-->
     <div>
@@ -399,6 +403,31 @@ function openNav() {
                 x.style.display = "none";
             }
         }
+
+
+    $(document).ready(function () {
+
+    $("#locSearch").keyup(function (e) {
+        //alert("yes");
+        $("#loc").html('');
+        e.preventDefault();
+        searchVal = e.target.value;
+        url = "https://maps.googleapis.com/maps/api/place/autocomplete/json?input="+searchVal+"&types=(cities)&language=en_ZA&key=AIzaSyAsfNvWU_CkDFroZY_UwQcqqrKarpwp_vI";
+
+        $.post(url, function (response) {
+        console.log(response.predictions);
+        var count = Object.keys(response.predictions).length;
+        for (let index = 0; index < count; index++) {
+            console.log(response.predictions[index]['description']);
+            var opt = document.createElement('option');
+            opt.value = response.predictions[index]['description'];
+            opt.innerHTML = response.predictions[index]['description'] ;
+            //select.appendChild(opt);
+            $("#loc").append(opt);
+            }
+         });
+    });
+});
 
 </script>
 

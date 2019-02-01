@@ -1,7 +1,7 @@
 <?php
     require_once 'core/init.php';
-/* var_dump($_REQUEST);
-    exit(); */
+	//var_dump($_REQUEST);
+    //exit(); */
 	$user = new user;
 	$db = DB::getInstance();
 	$profile = json_decode($user->data()->profile);
