@@ -1,37 +1,40 @@
 <?php
     require_once 'core/init.php';
     $user = new User();
-    $user_id = $user->data()->user_id;
+    $profile = $user->data()->profile;
+    $profile = json_decode($profile);
+
+    function age_cal($dob)
+    {
+        $dateOfBirth = $dob;
+        $today = date("Y-m-d");
+        $diff = date_diff(date_create($dateOfBirth), date_create($today));
+        return $diff->format('%y');
+    }
+    
+
     $gender = escape(INPUT::get('gender'));
     $sexual_p = escape(INPUT::get('sexual_p'));
     $dob = str_replace(',', ' ',escape(INPUT::get('checkin_date')));
-    //$email = escape(INPUT::get('email'));
+
+    var_dump($_POST);
     
     $db = DB::getInstance();
     if ($gender && $gender !== ' ')
     {
-        $profile = $user->data()->profile;
-        $profile = json_decode($profile);
-
-        $profile->gender = $gender; 
-        $user->update(array('profile' => json_encode($profile)));
+        $profile->gender = $gender;
     }
     if ($sexual_p && $sexual_p !== ' ')
     {
-        $profile = $user->data()->profile;
-        $profile = json_decode($profile);
-
         $profile->intrest_gender = $sexual_p; 
-        $user->update(array('profile' => json_encode($profile)));
     }
     if ($dob)
     {
-        $profile = $user->data()->profile;
-        $profile = json_decode($profile);
-        $profile->DOB = $dob; 
-        $user->update(array('profile' => json_encode($profile)));
-        //echo ($dob);
+        $profile->DOB = $dob;
+        $profile->age = age_cal($dob);
+
     }
+    $user->update(array('profile' => json_encode($profile)));
     Session::flash('dating_Details', 'You have succesfully updated your Dating Details.');
     Redirect::to('update_profile.php');
 ?>

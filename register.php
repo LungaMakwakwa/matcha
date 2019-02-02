@@ -59,8 +59,9 @@
                     "status" => "0",
                     "location" => Input::get('location'),
                     "fame_rating" => "0",
-                    "blocked" => array("0"),
-                    "blocker" => array("0")
+                    "blocked" => array("0", "0"),
+                    "blocker" => array("0", "0"),
+                    "intrests" => array("No intrest")
                 ));
                 echo $json;
 

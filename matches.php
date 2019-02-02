@@ -309,7 +309,6 @@
           <p>
           <?php
               $intrests = $profile_data->intrests;
-              //var_dump($intrests);
               
               if($intrests)
               {

@@ -243,7 +243,7 @@
         <div class = "field">
             <p class="w3-animate-left">
                     <div class="icon"><span class="icon-calendar"></span></div>
-                    <input type="text" name = "checkin_date" id="checkin_date" class="form-control" style = "width:425%" required>
+                    <input type="text" name = "checkin_date" id="checkin_date" class="form-control" style = "width:425%">
                     <p></p>
                 <label>Date of Birth</label>
             </p>
