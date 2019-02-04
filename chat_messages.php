@@ -59,6 +59,7 @@ switch ($_REQUEST['action']) {
         $profile = $user2->data()->profile;
         $profile = json_decode($profile);
         $profile->notification[] = $user->data()->username." Sent you a message";
+        $user2->update(array('profile' => json_encode($profile)), $user2->data()->user_id);
 
 
         // $sql = ("UPDATE `likes` SET `chat` = '$new' WHERE `liker_id`= $user_id AND `likee_id`= $userid OR `likee_id`= $user_id AND `liker_id`= $userid");
