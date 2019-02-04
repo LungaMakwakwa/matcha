@@ -12,7 +12,6 @@ user = '';
 		{
 			console.log("add user");
 		}
-		//console.log(user);
 	}, 10000);
 
 
