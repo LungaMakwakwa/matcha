@@ -228,7 +228,7 @@
          <hr>
          <p><i class="fa fa-at fa-fw w3-margin-right w3-text-theme"></i><?php echo($username) ?></p>
          <p><i class="fa fa-<?php echo(strtolower($profile_data->gender)) ?> fa-fw w3-margin-right w3-text-theme"></i><?php echo($profile_data->gender) ?></p>
-         <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i>Location</p>
+         <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i><?php echo ($profile_data->location) ?></p>
          <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i><?php echo($profile_data->DOB) ?></p>
          <p><i class="fa fa-hourglass fa-fw w3-margin-right w3-text-theme"></i><?php $profile_data->age?> Years old</p>
         </div>
