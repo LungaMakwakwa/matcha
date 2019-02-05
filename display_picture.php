@@ -207,10 +207,6 @@
     
 
     <script src="js/main.js"></script>
-    <!--<script src = "one_page_js/test.js"></script>
-    script src="one_page_js/search.js"></script> 
-
-    <!--- W3 CSS SCRIPT -->
 
 <?php
   }

@@ -79,7 +79,9 @@
                             'profile' =>  $json
                         ));
                         
+                        Session::flash('Con_email', 'Activation Acount Email Sent');
                         Redirect::to('index.php');
+                        
                         exit();
                     // Redirect
                     }

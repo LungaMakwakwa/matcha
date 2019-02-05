@@ -43,7 +43,7 @@
                         }
                         else
                         {
-                            Redirect::to('logged_in.php');
+                            Redirect::to('home.php');
                         }
                         
                     }

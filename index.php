@@ -136,6 +136,10 @@
                   {
                       echo '<p align = "center" style = "color:white">' .Session::flash('Reset_not_done').'</p>';
                   }
+                  else if (Session::exists('Con_email'))
+                  {
+                      echo '<p align = "center" style = "color:white">' .Session::flash('Con_email').'</p>';
+                  }
               ?>
             </div>
           </div>
@@ -447,21 +451,18 @@
               <li><a href="#">Terms &amp; Conditions</a></li>
               <li><a href="#">Privacy Policy</a></li>
               <li><a href="#">Help</a></li>
-             <li><a href="#">Rooms</a></li>
             </ul>
           </div>
           <div class="col-md-3 mb-5">
             <ul class="list-unstyled link">
               <li><a href="#">Our Location</a></li>
-              <li><a href="#">The Rooms &amp; Suites</a></li>
               <li><a href="#">About</a></li>
               <li><a href="#">Contact</a></li>
-              <li><a href="#">Restaurant</a></li>
             </ul>
           </div>
           <div class="col-md-3 mb-5 pr-md-5 contact-info">
-            <p><span class="d-block"><span class="ion-ios-location h5 mr-3 text-primary"></span>Address:</span> <span> 98 West 21th Street, Suite 721 New York NY 10016</span></p>
-            <p><span class="d-block"><span class="ion-ios-telephone h5 mr-3 text-primary"></span>Phone:</span> <span> (+1) 435 3533</span></p>
+            <p><span class="d-block"><span class="ion-ios-location h5 mr-3 text-primary"></span>Address:</span> <span> 84 Albertina Sisulu Road, Johannesburg, South Africa, 2000</span></p>
+            <p><span class="d-block"><span class="ion-ios-telephone h5 mr-3 text-primary"></span>Phone:</span> <span> 062 027 7443</span></p>
             <p><span class="d-block"><span class="ion-ios-email h5 mr-3 text-primary"></span>Email:</span> <span> info@yourdomain.com</span></p>
           </div>
           <div class="col-md-3 mb-5">
@@ -512,8 +513,8 @@
 
     <!----- SCRIPT FOR LOAD JQUERY ----->
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="one_page_js/div_call.js"></script>
-    <script src="one_page_js/location.js"></script>
+    <script src="js/div_call.js"></script>
+    <script src="js/location.js"></script>
 
   <!----- STYLE FOR PASSWORD PATTERN ----->
 

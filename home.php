@@ -114,6 +114,40 @@
             <div align = "center">
             <form action = "logout.php">
               <button id = "logout_button" class = "w3-btn  w3-border w3-border-orange w3-round-large" style = "width:100%"> Log Out </button>
+              <?php
+                  if (Session::exists('check'))
+                  {
+                      echo '<p align = "center" style = "color:white">' .Session::flash('check').'</p>';
+                  }
+                  else if (Session::exists('not_img'))
+                  {
+                      echo '<p align = "center" style = "color:white">' .Session::flash('not_img').'</p>';
+                  }
+                  else if (Session::exists('already_exi'))
+                  {
+                      echo '<p align = "center" style = "color:white">' .Session::flash('already_exi').'</p>';
+                  }
+                  else if (Session::exists('too_large'))
+                  {
+                      echo '<p align = "center" style = "color:white">' .Session::flash('too_large').'</p>';
+                  }
+                  else if (Session::exists('formet'))
+                  {
+                      echo '<p align = "center" style = "color:white">' .Session::flash('formet').'</p>';
+                  }
+                  else if (Session::exists('not_upload'))
+                  {
+                      echo '<p align = "center" style = "color:white">' .Session::flash('not_upload').'</p>';
+                  }
+                  else if (Session::exists('limit'))
+                  {
+                      echo '<p align = "center" style = "color:white">' .Session::flash('limit').'</p>';
+                  }
+                  else if (Session::exists('up_error'))
+                  {
+                      echo '<p align = "center" style = "color:white">' .Session::flash('up_error').'</p>';
+                  }
+              ?>
             </form>
             </div>
           </div>
@@ -132,9 +166,9 @@
 <div class="w3-top">
  <div class="w3-bar w3-theme-d2 w3-left-align w3-large">
   <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
-  <a href="logged_in.php" class="w3-bar-item w3-button w3-padding-large w3-theme-d4"><i class="fa fa-home w3-margin-right"></i>Logo</a>
+  <a href="home.php" class="w3-bar-item w3-button w3-padding-large w3-theme-d4"><i class="fa fa-home w3-margin-right"></i>Logo</a>
   <a href="matches.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="News"><i class="fa fa-globe"></i></a>
-  <a href="profile.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Account Settings"><i class="fa fa-user"></i></a>
+  <a href="update_profile.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Account Settings"><i class="fa fa-user"></i></a>
   <a href="chat.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Messages"><i class="fa fa-envelope"></i></a>
   <div class="w3-dropdown-hover w3-hide-small">
     <button id = "Notifications_icon" class="w3-button w3-padding-large" title="Notifications"><i class="fa fa-bell"></i><span class="w3-badge w3-right w3-small w3-green" id = "notes_count"></span></button>     
@@ -385,7 +419,7 @@
         <div class="w3-col m12">
           <div class="w3-card w3-round w3-white">
             <div class="w3-container w3-padding">
-              <h6 class="w3-opacity">Add Bio</h6>
+              <h6 class="w3-opacity">Enter Bio</h6>
                 <p contenteditable="true" class="w3-border w3-padding" id = "bio"><?php echo $profile_data->Bio?></p>
                 <button type="button" class="w3-button w3-theme" id = "bio_post"><i class="fa fa-pencil"></i>  Post</button> 
             </div>
@@ -486,10 +520,9 @@
     
 
     <script src="js/main.js"></script>
-    <script src="one_page_js/submit.js"></script>
-    <script src="one_page_js/notification.js"></script>
-    <!--script src="one_page_js/search.js"></script> 
-
+    <script src="js/submit.js"></script>
+    <script src="js/notification.js"></script>
+    
     <!--- W3 CSS SCRIPT -->
     <script>
 // Accordion
