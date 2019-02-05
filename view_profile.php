@@ -250,19 +250,33 @@
   
           ?>
           <?php
-
-            if($db->results())
-            {
                 $profile = json_decode($user->data()->profile);
-                if ($profile->blocked == $user_id)
+                function buttons($data, $id)
                 {
-                  echo '<button id = "block" class="w3-btn w3-black block_btn" data-status = "like" data-likee = '.$user_id.' data-liker = '.$userid.'  style="text-shadow:1px 1px 0 #444" ><b>Unblock</b></button>';
+                  $x = Count($data);
+                  $i = 0;
+                  while ($x > $i)
+                  {
+                    if ($data[$i] == $id)
+                    {
+                      return(1);
+                      exit();
+                    }
+                    $i++;
+                  }
+                  return(0);
                 }
-            }
-            else
-            {
-              echo '<button id = "block" class="w3-btn w3-black block_btn" data-status = "like" data-likee = '.$user_id.' data-liker = '.$userid.'  style="text-shadow:1px 1px 0 #444" ><b>Block</b></button>';
-            }
+
+                if (buttons($profile->blocked, $user_id) === 1)
+                {
+                    echo '<button id = "block" class="w3-btn w3-black block_btn" data-status = "like" data-likee = '.$user_id.' data-liker = '.$userid.'  style="text-shadow:1px 1px 0 #444" ><b>Unblock</b></button>';
+                }
+                else
+                {
+                    echo '<button id = "block" class="w3-btn w3-black block_btn" data-status = "like" data-likee = '.$user_id.' data-liker = '.$userid.'  style="text-shadow:1px 1px 0 #444" ><b>Block</b></button>';
+                }
+
+                
 
           ?>
          <form action="photo_upload.php" method="post" enctype="multipart/form-data">

@@ -284,7 +284,9 @@
                 }
                 else
                 {
+                    echo "<p></p>";
                     echo "<p>No History</p>";
+                    echo "<p></p>";
                 }
                 //var_dump($history[0]->username_notif)
                 

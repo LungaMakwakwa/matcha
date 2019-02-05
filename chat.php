@@ -27,7 +27,7 @@
 	
 	<!-- Theme Style -->
 
-	<link rel="stylesheet" href="chat_style.css">
+	<link rel="stylesheet" href="css/chat_style.css">
 
 	<script
   src="https://code.jquery.com/jquery-3.2.1.js"
@@ -129,7 +129,7 @@
 	</div>
 
 
-	<script src="test_rahul3chat.js"></script>
+	<script src="js/chat.js"></script>
 	<script src="js/notification.js"></script>
 
 </body>

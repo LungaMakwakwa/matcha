@@ -7,16 +7,17 @@ $user = new User();
 $user_id = $user->data()->user_id;
 $username = $user->data()->username;
 
-/* require_once 'core/init.php';
-$db = DB::getInstance();*/
-//var_dump($_REQUEST);
+
 switch ($_REQUEST['action']) {
 
 
     case 'getUsers':
         try {
+
             $sql1 = ("SELECT `username`,`user_id` FROM `users` JOIN `likes` ON `liker_id`=`user_id` WHERE `likee_id` = $user_id AND `liker_stat` = 1 AND `likee_stat` = 1");
+
             $sql2 = ("SELECT `username`,`user_id` FROM `users` JOIN `likes` ON `likee_id`=`user_id` WHERE `liker_id` = $user_id AND liker_stat = 1 AND `likee_stat` = 1");
+            
         } catch (PDOException $e) {
             print "Error : " . $e->getMessage() . "<br/>";
             die();
