@@ -116,7 +116,7 @@
         $email_code = md5(Input::get('email'));
         $email = Input::get('email');
         $to = trim(Input::get('email'));
-        $subject = "Camagru activation code";
+        $subject = "Matcha activation code";
         $txt = "Hi $username<br>Click link to activate account.<br>http://127.0.0.1:8080/camagru/activate.php?activate=$email_code&email=$email";
         $mail = mail($to,$subject,$txt);
         if ($mail)

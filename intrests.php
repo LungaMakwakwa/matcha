@@ -14,6 +14,6 @@
   $user->update(array('profile' => json_encode($profile)));
 
   $N = count($intrests);
-  Redirect::to("logged_in.php");
+  Redirect::to("home.php");
 
 ?>

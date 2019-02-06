@@ -57,7 +57,7 @@ if ($uploadOk == 0) {
 
         echo "<br>".$target_dir.$user_id.$username.rand(0,999).".jpeg"."<br>";
         echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
-        Redirect::to("logged_in.php");
+        Redirect::to("home.php");
     } else {
         echo "Sorry, there was an error uploading your file.";
     }
