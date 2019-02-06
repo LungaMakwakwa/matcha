@@ -22,7 +22,7 @@ $('document').ready(function () {
             btnlike.textContent = 'Like';
             liked = 0;
         }
-
+    
         var hr = new XMLHttpRequest();
         var url = "like.php";
          hr.open("POST", url, true);
