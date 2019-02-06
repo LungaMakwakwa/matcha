@@ -67,6 +67,7 @@ function ipFetch() {
         where_i_stay = response['city']
         // alert(where_i_stay)
         $("#location").val(where_i_stay);
+        $("#location2").val(where_i_stay);
 
        // console.log(response['latitude']);
        // console.log(response["longitude"]);

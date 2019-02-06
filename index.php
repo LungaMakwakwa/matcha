@@ -188,6 +188,7 @@
                 <div class="col-md-6 form-group">
                   <label for="password2">Password</label>
                   <input type="password" name = "password2" id="password2" class="form-control" style = "width:200%">
+                  <input type = "hidden" name = "location" id="location2" value = "">
               </div>
               </div>
 

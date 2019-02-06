@@ -78,65 +78,100 @@
         $profile_data = json_decode($user->data()->profile);
         $blocked = implode(", ",$profile_data->blocked);
         $blocker = implode(", ",$profile_data->blocker);
-        
-        
-        if ($loc === 'None' && $age1 === 'None' && $age1 === 'None')
-        {
-            if ($profile_data->gender === $gender && $profile_data->intrest_gender === $pref)
+    
+            if ($loc === 'None' && $age1 === 'None' && $age1 === 'None')
             {
-                $sql = "SELECT * FROM `users` WHERE json_unquote(json_extract(`profile`, '$.gender')) = '$pref' AND json_unquote(json_extract(`profile`, '$.intrest_gender')) = '$gender' AND `user_id` NOT IN ($blocked) AND `user_id` NOT IN ($blocker) ORDER BY json_unquote(json_extract(`profile`, '$.fame_rating')) $fame";
-                return $sql;
+                if ($profile_data->gender === $gender && $profile_data->intrest_gender === $pref)
+                {
+                    $sql = "SELECT * FROM `users` WHERE json_unquote(json_extract(`profile`, '$.gender')) = '$pref' AND json_unquote(json_extract(`profile`, '$.intrest_gender')) = '$gender' AND `user_id` NOT IN ($blocked) AND `user_id` NOT IN ($blocker) ORDER BY json_unquote(json_extract(`profile`, '$.fame_rating')) $fame";
+                    return $sql;
+                }
             }
-        }
 
-        else if ($loc === 'None' && $age1 !== 'None' && $age2 !== 'None' && $age1 < $age2)
-        {
-            if ($profile_data->gender === $gender && $profile_data->intrest_gender === $pref)
+            else if ($loc === 'None' && $age1 !== 'None' && $age2 !== 'None' && $age1 < $age2)
             {
-                $sql = "SELECT * FROM `users` WHERE json_unquote(json_extract(`profile`, '$.age')) BETWEEN $age1 AND $age2 AND  json_unquote(json_extract(`profile`, '$.gender')) = '$pref' AND json_unquote(json_extract(`profile`, '$.intrest_gender')) = '$gender' AND `user_id` NOT IN ($blocked) AND `user_id` NOT IN ($blocker) ORDER BY json_unquote(json_extract(`profile`, '$.fame_rating')) $fame";
-                return $sql;
+                if ($profile_data->gender === $gender && $profile_data->intrest_gender === $pref)
+                {
+                    $sql = "SELECT * FROM `users` WHERE json_unquote(json_extract(`profile`, '$.age')) BETWEEN $age1 AND $age2 AND  json_unquote(json_extract(`profile`, '$.gender')) = '$pref' AND json_unquote(json_extract(`profile`, '$.intrest_gender')) = '$gender' AND `user_id` NOT IN ($blocked) AND `user_id` NOT IN ($blocker) ORDER BY json_unquote(json_extract(`profile`, '$.fame_rating')) $fame";
+                    return $sql;
+                }
             }
-        }
 
-        else if ($loc !== 'None' && $age1 === 'None' && $age2 === 'None')
-        {
-            if ($profile_data->gender === $gender && $profile_data->intrest_gender === $pref)
+            else if ($loc !== 'None' && $age1 === 'None' && $age2 === 'None')
             {
-                $sql = "SELECT * FROM `users` WHERE json_unquote(json_extract(`profile`, '$.gender')) = '$pref' AND json_unquote(json_extract(`profile`, '$.intrest_gender')) = '$gender' AND `user_id` NOT IN ($blocked) AND `user_id` NOT IN ($blocker) ORDER BY json_unquote(json_extract(`profile`, '$.fame_rating')) $fame";
-                return $sql;
-            }
-        }
+                if ($loc === 'Same Location')
+                { 
+                    if ($profile_data->gender === $gender && $profile_data->intrest_gender === $pref)
+                    {
+                        $sql = "SELECT * FROM `users` WHERE json_unquote(json_extract(`profile`, '$.gender')) = '$pref' AND json_unquote(json_extract(`profile`, '$.location')) = '$profile_data->location' AND json_unquote(json_extract(`profile`, '$.intrest_gender')) = '$gender' AND `user_id` NOT IN ($blocked) AND `user_id` NOT IN ($blocker) ORDER BY json_unquote(json_extract(`profile`, '$.fame_rating')) $fame";
+                        return $sql;
+                    }
+                }
+                else
+                {
+                    if ($profile_data->gender === $gender && $profile_data->intrest_gender === $pref)
+                    {
+                        $sql = "SELECT * FROM `users` WHERE json_unquote(json_extract(`profile`, '$.gender')) = '$pref' AND json_unquote(json_extract(`profile`, '$.location')) != '$profile_data->location' AND json_unquote(json_extract(`profile`, '$.intrest_gender')) = '$gender' AND `user_id` NOT IN ($blocked) AND `user_id` NOT IN ($blocker) ORDER BY json_unquote(json_extract(`profile`, '$.fame_rating')) $fame";
+                        return $sql;
+                    }
+                }
 
-        else if ($loc !== 'None' && $age1 !== 'None' && $age2 !== 'None' && $age1 < $age2)
-        {
-            if ($profile_data->gender === $gender && $profile_data->intrest_gender === $pref)
-            {
-                $sql = "SELECT * FROM `users` WHERE json_unquote(json_extract(`profile`, '$.gender')) = '$pref' AND json_unquote(json_extract(`profile`, '$.intrest_gender')) = '$gender' AND `user_id` NOT IN ($blocked) AND `user_id` NOT IN ($blocker) ORDER BY json_unquote(json_extract(`profile`, '$.fame_rating')) $fame";
-                return $sql;
             }
-        }
+
+            else if ($loc !== 'None' && $age1 !== 'None' && $age2 !== 'None' && $age1 < $age2)
+            {
+                if ($loc === 'Same Location')
+                { 
+                    if ($profile_data->gender === $gender && $profile_data->intrest_gender === $pref)
+                    {
+                        $sql = "SELECT * FROM `users` WHERE json_unquote(json_extract(`profile`, '$.gender')) = '$pref' AND json_unquote(json_extract(`profile`, '$.location')) = '$profile_data->location' AND json_unquote(json_extract(`profile`, '$.intrest_gender')) = '$gender' AND `user_id` NOT IN ($blocked) AND `user_id` NOT IN ($blocker) ORDER BY json_unquote(json_extract(`profile`, '$.fame_rating')) $fame";
+                        return $sql;
+                    }
+                }
+                else
+                {
+                    if ($profile_data->gender === $gender && $profile_data->intrest_gender === $pref)
+                    {
+                        $sql = "SELECT * FROM `users` WHERE json_unquote(json_extract(`profile`, '$.gender')) = '$pref' AND json_unquote(json_extract(`profile`, '$.location')) != '$profile_data->location' AND json_unquote(json_extract(`profile`, '$.intrest_gender')) = '$gender' AND `user_id` NOT IN ($blocked) AND `user_id` NOT IN ($blocker) ORDER BY json_unquote(json_extract(`profile`, '$.fame_rating')) $fame";
+                        return $sql;
+                    }
+                }
+            }
+            else
+            {
+                if ($profile_data->gender === $gender && $profile_data->intrest_gender === $pref)
+                {
+                    $sql = "SELECT * FROM `users` WHERE `user_id` = '100000' ";
+                    return $sql;
+                }
+            }
     }
 
     $sql = sorts($profile_data->gender, $profile_data->intrest_gender);
-    // echo $sql;
-    // exit();
     $db->query($sql);
     $images = $db->results();
-    $num_images = $db->count();
-    $i = 0;
-    while ($i < $num_images)
+    if ($images)
     {
-      $profile_data = json_decode($images[$i]->profile);
-      echo '<div class="w3-container w3-card w3-white w3-round w3-margin"><br>';
-      echo '<span class="w3-right w3-opacity">Picture</span>';
-      echo '<h4 class="w3-center"><span class="dot" '.status($images[$i]->status).'></span>'.$images[$i]->first_name.' '.$images[$i]->last_name.'</h4>';
-      echo '<hr class="w3-clear">';
-      echo '<img src="'.$profile_data->display_picture.'" style="width:100%" class="w3-margin-bottom">';
-      echo '<p>Age: '.$profile_data->age.'</p>';
-      echo '<p>Gender: '.$profile_data->gender.'</p>';
-      echo "<p><i class='fa fa-star fa-fw w3-margin-right w3-text-theme'></i>Fame Rate: $profile_data->fame_rating Points</p>";
-      echo '<button onclick = "view(this);" type="button" data-status = "like" data-img="'.$images[$i]->user_id.'"  class="w3-button w3-theme-d1 w3-margin-bottom view_btn">View Profile</button> ';
-      echo '</div>';
-      $i++;
+        $num_images = $db->count();
+        $i = 0;
+        while ($i < $num_images)
+        {
+          $profile_data = json_decode($images[$i]->profile);
+          echo '<div class="w3-container w3-card w3-white w3-round w3-margin"><br>';
+          echo '<span class="w3-right w3-opacity">Picture</span>';
+          echo '<h4 class="w3-center"><span class="dot" '.status($images[$i]->status).'></span>'.$images[$i]->first_name.' '.$images[$i]->last_name.'</h4>';
+          echo '<hr class="w3-clear">';
+          echo '<img src="'.$profile_data->display_picture.'" style="width:100%" class="w3-margin-bottom">';
+          echo '<p>Age: '.$profile_data->age.'</p>';
+          echo '<p>Gender: '.$profile_data->gender.'</p>';
+          echo "<p><i class='fa fa-star fa-fw w3-margin-right w3-text-theme'></i>Fame Rate: $profile_data->fame_rating Points</p>";
+          echo '<button onclick = "view(this);" type="button" data-status = "like" data-img="'.$images[$i]->user_id.'"  class="w3-button w3-theme-d1 w3-margin-bottom view_btn">View Profile</button> ';
+          echo '</div>';
+          $i++;
+        }
+    }
+    else
+    {
+        echo '<h1 align = "center" style="color:grey">NO RESULTS</h1>';
     }
 ?>

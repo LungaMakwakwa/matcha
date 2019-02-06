@@ -41,7 +41,7 @@ $(document).ready(function () {
 
     $("#forgot_pwdBtn").click(function (){
 
-        //alert("yes");
+      
         var x = document.getElementById("forgot_pwd");
         var y = document.getElementById("login");
         if (x.style.display === "none") {

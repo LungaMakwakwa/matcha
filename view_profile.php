@@ -411,16 +411,16 @@
           <div class="w3-card w3-round w3-white">
             <div class="w3-container w3-padding">
               <h6 class="w3-opacity">My Status Message</h6>
-              <p contenteditable="true" class="w3-border w3-padding">Status: Feeling Blue</p>
+              <p contenteditable="true" class="w3-border w3-padding"><?php echo ($profile_data->Bio) ?></p>
             </div>
           </div>
         </div>
       </div>
       <?php
         $db = DB::getInstance();
-        $db->get("gallery",array('user_id', '=', $user->data()->user_id));
+        $db->get("gallery",array('user_id', '=', $user_id));
         $images = $db->results();
-        $num_images = $db->count() - 1;
+        $num_images = $db->count();
         $i = 0;
         while ($i < $num_images)
         {

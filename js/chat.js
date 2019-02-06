@@ -12,7 +12,7 @@ user = '';
 		{
 			console.log("add user");
 		}
-	}, 10000);
+	}, 1000);
 
 
 	$('#textarea').keyup(function (e) {
@@ -21,8 +21,8 @@ user = '';
 		}
 	});
 
-	$("#chat_user").on('click',function(){
-		user = this.getAttribute("data-user_id");
+	$(".chat_user").on('click',function(){
+		user = $(this).attr("data-user_id");
 		LoadChat(user);
 	});
 

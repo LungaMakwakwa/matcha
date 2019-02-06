@@ -33,7 +33,6 @@
                         if ($user->data()->status !== "1")
                         {
                             $update = $db->query( "UPDATE users SET `status` = ? WHERE `user_id` = ?", array("status" => "1", "user_id"=>$user->data()->user_id));
-                            
                         }
                         $data = json_decode($user->data()->profile);
                         //var_dump ($data);

@@ -92,7 +92,7 @@
 			<div><?php 
 				$db = DB::getInstance();
 
-				$sql = "SELECT * FROM likes WHERE likee_id = $user_id OR liker_id = $user_id";
+				$sql = "SELECT * FROM likes WHERE likee_id = $user_id OR liker_id = $user_id AND likee_stat = '1' AND liker_stat = '1' ";
 				$db->query($sql);
 				$chaters = $db->results();
 				// var_dump ($chaters);
@@ -102,16 +102,16 @@
 						$sql = "SELECT * FROM users WHERE user_id = $value->likee_id";
 						$db->query($sql);
 						$usernames = $db->first();
-						//var_dump($usernames->username);
-						echo "<button id = 'chat_user' data-user_id = '$value->likee_id'>$usernames->username</button>";
+
+						echo "<button  class='w3-button w3-block w3-green w3-section chat_user'  data-user_id = '$value->likee_id'>$usernames->username </button>";
 					}
 					else if ($value->likee_id === $user_id)
 					{
 						$sql = "SELECT * FROM users WHERE user_id = $value->liker_id";
 						$db->query($sql);
 						$usernames = $db->first();
-						//echo "$usernames->username";
-						echo "<button id = 'chat_user' data-user_id = '$value->liker_id'>$usernames->username</button>";
+
+						echo "<button id = 'chat_user' class='w3-button w3-block w3-green w3-section chat_user' data-user_id = '$value->liker_id'>$usernames->username</button>";
 					}
 				}
 

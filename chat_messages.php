@@ -16,6 +16,7 @@ switch ($_REQUEST['action']) {
 
             $sql1 = ("SELECT `username`,`user_id` FROM `users` JOIN `likes` ON `liker_id`=`user_id` WHERE `likee_id` = $user_id AND `liker_stat` = 1 AND `likee_stat` = 1");
 
+
             $sql2 = ("SELECT `username`,`user_id` FROM `users` JOIN `likes` ON `likee_id`=`user_id` WHERE `liker_id` = $user_id AND liker_stat = 1 AND `likee_stat` = 1");
             
         } catch (PDOException $e) {

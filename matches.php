@@ -60,13 +60,6 @@
             }
 
         }
-        //$detail_array = $user->data()->profile;
-        
-        
-        //$detail_string = json_decode($profile);
-       
-
-		//echo ($user->data()->user_id);
 ////////////////////////////////////////////////////////////
 //          IF USER LOGGED IN!
 ////////////////////////////////////////////////////////////
@@ -263,7 +256,30 @@
           </div>
           <button onclick="myFunction('Demo2')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-close fa-fw w3-margin-right"></i> Blocked Users</button>
           <div id="Demo2" class="w3-hide w3-container">
-            <p>Some other text..</p>
+            <?php
+
+                $block = implode(", ",$profile_data->blocked);
+                $sql = "SELECT * FROM users WHERE `user_id` IN ($block)";
+                // var_dump ($sql);
+                
+                $db->query($sql);
+                $block = $db->results();
+                // var_dump($block);
+                $count = $db->count();
+                if ($block)
+                {
+                  for($i = 0; $count > $i; $i++)
+                  {
+                    echo "<p>".$block[$i]->username."</p>";
+                  }
+                }
+                else
+                {
+                    echo "<p></p>";
+                    echo "<p>No Blocked Users</p>";
+                    echo "<p></p>";
+                }
+            ?>
           </div>
           <button onclick="myFunction('Demo3')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-users fa-fw w3-margin-right"></i> My Photos</button>
           <div id="Demo3" class="w3-hide w3-container">

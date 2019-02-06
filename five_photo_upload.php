@@ -16,9 +16,7 @@ $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 if(isset($_POST["submit"])) {
     $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
     if($check !== false) {
-        Session::flash('check', "File is an image - " . $check["mime"] . ".");
-        Redirect::to('home.php');
-        echo "File is an image - " . $check["mime"] . ".";
+        // echo "File is an image - " . $check["mime"] . ".";
         $uploadOk = 1;
     } else {
         Session::flash('not_img', "File is not an image.");
@@ -71,6 +69,8 @@ if ($uploadOk == 0) {
             $db->insert('gallery', array(
                 'img_name' => $image_to,
                 'user_id' => $user_id));
+            Session::flash('upload', "You have succesfully Uploaded the image");
+            Redirect::to('home.php');
         }
         else
         {

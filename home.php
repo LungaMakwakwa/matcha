@@ -147,6 +147,10 @@
                   {
                       echo '<p align = "center" style = "color:white">' .Session::flash('up_error').'</p>';
                   }
+                  else if (Session::exists('upload'))
+                  {
+                      echo '<p align = "center" style = "color:white">' .Session::flash('upload').'</p>';
+                  }
               ?>
             </form>
             </div>
@@ -292,8 +296,32 @@
                 
               ?>
           </div>
-          <button onclick="myFunction('Demo2')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-calendar-check-o fa-fw w3-margin-right"></i> My Events</button>
+          <button onclick="myFunction('Demo2')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-close fa-fw w3-margin-right"></i> Blocked Users</button>
           <div id="Demo2" class="w3-hide w3-container">
+          <?php
+
+                $block = implode(", ",$profile_data->blocked);
+                $sql = "SELECT * FROM users WHERE `user_id` IN ($block)";
+                // var_dump ($sql);
+                
+                $db->query($sql);
+                $block = $db->results();
+                // var_dump($block);
+                $count = $db->count();
+                if ($block)
+                {
+                  for($i = 0; $count > $i; $i++)
+                  {
+                    echo "<p>".$block[$i]->username."</p>";
+                  }
+                }
+                else
+                {
+                    echo "<p></p>";
+                    echo "<p>No Blocked Users</p>";
+                    echo "<p></p>";
+                }
+            ?>
             <p>Some other text..</p>
           </div>
           <button onclick="myFunction('Demo3')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-users fa-fw w3-margin-right"></i> My Photos</button>
@@ -433,7 +461,7 @@
         $db = DB::getInstance();
         $db->get("gallery",array('user_id', '=', $user->data()->user_id));
         $images = $db->results();
-        $num_images = $db->count() - 1;
+        $num_images = $db->count();
         $i = 0;
         while ($i < $num_images)
         {

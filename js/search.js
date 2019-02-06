@@ -48,7 +48,7 @@ var textBox = document.getElementById('textbox'),
 
 					if (json.length === 0) {
 						if (isLoadMoreMode) {
-							alert('No more to load');
+							// alert('No more to load');
 						} else {
 							noUsers();
 						}
