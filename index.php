@@ -140,6 +140,10 @@
                   {
                       echo '<p align = "center" style = "color:white">' .Session::flash('Con_email').'</p>';
                   }
+                  else if (Session::exists('success_act'))
+                  {
+                      echo '<p align = "center" style = "color:white">' .Session::flash('success_act').'</p>';
+                  }
               ?>
             </div>
           </div>

@@ -7,6 +7,7 @@
     {
         $user = new User();
         $user2 = new User($_REQUEST['uid']);
+        $db = DB::getInstance();
         
         $profile = $user->data()->profile;
         $profile = json_decode($profile);
@@ -24,7 +25,7 @@
         $d2 = $user->data()->user_id;
         $sql = "DELETE FROM likes WHERE likee_id = $d1 AND liker_id = $d2 OR likee_id = $d2 AND liker_id = $d1";
         $db->query($sql);
-        $result = $db->result();
+        $result = $db->results();
 
     }
     else if ($_REQUEST['stat'] === "Unblock")

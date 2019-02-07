@@ -79,10 +79,7 @@
                             'profile' =>  $json
                         ));
                         
-                        Session::flash('Con_email', 'Activation Acount Email Sent');
-                        Redirect::to('index.php');
-                        
-                        exit();
+                       // exit();
                     // Redirect
                     }
 
@@ -93,9 +90,11 @@
                 }
                 else
                 {
+                    Session::flash('Con_email', 'Invalid email');
+                    Redirect::to('index.php');
                     
-                    echo "email invalid Please <a href = register.php>Register again</a>";
-                    exit();
+                    //echo "email invalid Please <a href = register.php>Register again</a>";
+                    //exit();
                 }
             }
             else
@@ -117,15 +116,17 @@
         $email = Input::get('email');
         $to = trim(Input::get('email'));
         $subject = "Matcha activation code";
-        $txt = "Hi $username<br>Click link to activate account.<br>http://127.0.0.1:8080/camagru/activate.php?activate=$email_code&email=$email";
+        $txt = "Hi $username</br></br>Click link to activate account.</br>http://127.0.0.1:8080/matcha/activate.php?activate=$email_code";
         $mail = mail($to,$subject,$txt);
         if ($mail)
         {
+            echo "no error";
             Session::flash('email_act', 'Account activation email sent');
             Redirect::to('index.php');
         }
         else
         {
+            echo "some error";
             Session::flash('invalid', 'invalid email address');
             Redirect::to('index.php');
         }

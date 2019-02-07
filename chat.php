@@ -118,7 +118,6 @@
 			?></div>
 			<div id="abc"></div>
 			<div id="chat"></div>
-
 			<form method="POST" id="messageFrm">
 				<textarea id="textarea" name="message" cols="30" rows="7" class="textarea" placeholder="Please Type a message to send"></textarea>
 			</form>

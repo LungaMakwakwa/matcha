@@ -67,6 +67,8 @@ $('document').ready(function () {
          hr.onreadystatechange = function() {
             if(hr.readyState == 4 && hr.status == 200) {
                 var return_data = hr.responseText;
+                //alert(return_data);
+                //console.log(return_data);
 
             }
         }

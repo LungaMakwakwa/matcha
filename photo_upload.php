@@ -19,28 +19,38 @@ if(isset($_POST["submit"])) {
         echo "File is an image - " . $check["mime"] . ".";
         $uploadOk = 1;
     } else {
+        Session::flash('not_img', "File is not an image.");
+        Redirect::to('display_picture.php');
         echo "File is not an image.";
         $uploadOk = 0;
     }
 }
 // Check if file already exists
 if (file_exists($target_file)) {
+    Session::flash('already_exi', "Sorry, file already exists.");
+    Redirect::to('display_picture.php');
     echo "Sorry, file already exists.";
     $uploadOk = 0;
 }
 // Check file size
 if ($_FILES["fileToUpload"]["size"] > 500000000) {
+    Session::flash('too_large', "Sorry, your file is too large.");
+    Redirect::to('display_picture.php');
     echo "Sorry, your file is too large.";
     $uploadOk = 0;
 }
 // Allow certain file formats
 if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
 && $imageFileType != "gif" ) {
+    Session::flash('formet', "Sorry, only JPG, JPEG, PNG & GIF files are allowed.");
+    Redirect::to('display_picture.php');
     echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
     $uploadOk = 0;
 }
 // Check if $uploadOk is set to 0 by an error
 if ($uploadOk == 0) {
+    Session::flash('not_upload', "Sorry, your file was not uploaded.");
+    Redirect::to('display_picture.php');
     echo "Sorry, your file was not uploaded.";
 // if everything is ok, try to upload file
 } else {
@@ -57,8 +67,11 @@ if ($uploadOk == 0) {
 
         echo "<br>".$target_dir.$user_id.$username.rand(0,999).".jpeg"."<br>";
         echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+        Session::flash('upload', "You have succesfully Uploaded the image");
         Redirect::to("home.php");
     } else {
+        Session::flash('up_error', "Sorry, there was an error uploading your file.");
+        Redirect::to('display_picture.php');
         echo "Sorry, there was an error uploading your file.";
     }
 }

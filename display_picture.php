@@ -110,6 +110,44 @@
             <div align = "center">
             <form action = "logout.php">
               <button id = "logout_button" class = "w3-btn  w3-border w3-border-orange w3-round-large" style = "width:100%"> Log Out </button>
+              <?php
+                  if (Session::exists('check'))
+                  {
+                      echo '<p align = "center" style = "color:white">' .Session::flash('check').'</p>';
+                  }
+                  else if (Session::exists('not_img'))
+                  {
+                      echo '<p align = "center" style = "color:white">' .Session::flash('not_img').'</p>';
+                  }
+                  else if (Session::exists('already_exi'))
+                  {
+                      echo '<p align = "center" style = "color:white">' .Session::flash('already_exi').'</p>';
+                  }
+                  else if (Session::exists('too_large'))
+                  {
+                      echo '<p align = "center" style = "color:white">' .Session::flash('too_large').'</p>';
+                  }
+                  else if (Session::exists('formet'))
+                  {
+                      echo '<p align = "center" style = "color:white">' .Session::flash('formet').'</p>';
+                  }
+                  else if (Session::exists('not_upload'))
+                  {
+                      echo '<p align = "center" style = "color:white">' .Session::flash('not_upload').'</p>';
+                  }
+                  else if (Session::exists('limit'))
+                  {
+                      echo '<p align = "center" style = "color:white">' .Session::flash('limit').'</p>';
+                  }
+                  else if (Session::exists('up_error'))
+                  {
+                      echo '<p align = "center" style = "color:white">' .Session::flash('up_error').'</p>';
+                  }
+                  else if (Session::exists('upload'))
+                  {
+                      echo '<p align = "center" style = "color:white">' .Session::flash('upload').'</p>';
+                  }
+              ?>
             </form>
             </div>
           </div>
